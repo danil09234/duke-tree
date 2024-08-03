@@ -1,7 +1,7 @@
 name: duke
 services:
   processing-scripts:
-    container_name: processing-scripts
+    container_name: duke-processing-scripts
     build:
       context:
         .
@@ -26,7 +26,7 @@ services:
         - action: rebuild
           path: ./ClientsBot/requirements.txt
   database:
-    container_name: database
+    container_name: duke-database
     image: postgres:16
     restart: always
     ports:
