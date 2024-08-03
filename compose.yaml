@@ -1,0 +1,47 @@
+name: diamonds-project
+services:
+  processing-scripts:
+    container_name: processing-scripts
+    build:
+      context:
+        .
+      args:
+        db_host: ${db_host}
+        db_port: ${db_port}
+        db_user: ${db_user}
+        db_password: ${db_password}
+        db_name: ${db_name}
+    depends_on:
+      database:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./compose.yaml
+        - action: rebuild
+          path: ./ClientsBot/Dockerfile
+        - action: rebuild
+          path: ./ClientsBot/requirements.txt
+  database:
+    container_name: database
+    image: postgres:16
+    restart: always
+    ports:
+      - ${db_port}:${db_port}
+    expose:
+      - ${db_port}
+    environment:
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+volumes:
+  db_data:
