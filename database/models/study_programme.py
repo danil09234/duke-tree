@@ -6,7 +6,7 @@ from .base import Base
 from .enums import StudyForm, Degree
 
 
-class StudyProgram(Base):
+class StudyProgramme(Base):
     __tablename__ = 'study_programmes'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
