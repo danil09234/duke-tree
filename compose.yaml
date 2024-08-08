@@ -1,10 +1,10 @@
 name: duke
 services:
-  processing-scripts:
-    container_name: duke-processing-scripts
+  study-programmes-parser:
+    container_name: duke-study-programmes-parser
     build:
-      context:
-        .
+      context: .
+      dockerfile: Dockerfile
       args:
         db_host: ${db_host}
         db_port: ${db_port}
