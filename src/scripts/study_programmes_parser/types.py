@@ -15,5 +15,5 @@ class StudyProgramme(NamedTuple):
     length_of_study_in_years: int
     professionally_oriented: bool
     joint_study_program: bool
-    languages_of_delivery: int
+    languages_of_delivery: str
     description: str
