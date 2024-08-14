@@ -1,7 +1,6 @@
-from src.scripts.study_programmes_parser.infrastructure.interfaces import Savable, Parser, \
-    StudyProgrammeSource
-from src.scripts.study_programmes_parser.infrastructure.interfaces import Repository
-from src.scripts.study_programmes_parser.domain.entities.study_programme import StudyProgramme
+from src.infrastructure.interfaces import Savable, Parser, StudyProgrammeSource
+from src.infrastructure.interfaces import Repository
+from src.domain.entities.study_programme import StudyProgramme
 
 
 class FetchAndSaveStudyProgrammesUseCase:

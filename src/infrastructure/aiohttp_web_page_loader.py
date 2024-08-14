@@ -1,4 +1,4 @@
-from src.scripts.study_programmes_parser.infrastructure.interfaces import WebPageLoader
+from src.infrastructure.interfaces import WebPageLoader
 
 type url = str
 

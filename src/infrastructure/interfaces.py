@@ -1,6 +1,6 @@
 from typing import Protocol, Iterable
 
-from src.scripts.study_programmes_parser.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.study_programme import StudyProgramme
 
 
 class Savable[T](Protocol):

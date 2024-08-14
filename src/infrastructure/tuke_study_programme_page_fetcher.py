@@ -1,9 +1,9 @@
 import asyncio
 from typing import Optional
 
-from src.scripts.study_programmes_parser.infrastructure.exceptions import PageLoadingError, InvalidUrlError
-from src.scripts.study_programmes_parser.infrastructure.interfaces import Repository, WebPageLoader
-from src.scripts.study_programmes_parser.domain.entities.languages import Language
+from src.infrastructure.exceptions import PageLoadingError, InvalidUrlError
+from src.infrastructure.interfaces import Repository, WebPageLoader
+from src.domain.entities.languages import Language
 
 
 class TukeStudyProgrammePageFetcher(Repository[str]):

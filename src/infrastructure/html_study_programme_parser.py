@@ -1,5 +1,5 @@
-from src.scripts.study_programmes_parser.domain.entities.study_programme import StudyProgramme
-from src.scripts.study_programmes_parser.infrastructure.interfaces import Parser
+from src.domain.entities.study_programme import StudyProgramme
+from src.infrastructure.interfaces import Parser
 
 
 class HtmlStudyProgrammeParser(Parser[str, StudyProgramme]):

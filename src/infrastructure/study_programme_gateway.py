@@ -1,10 +1,10 @@
 import asyncio
 from typing import Optional
 
-from src.scripts.study_programmes_parser.domain.entities.languages import Language
-from src.scripts.study_programmes_parser.domain.entities.study_programme import StudyProgramme
-from src.scripts.study_programmes_parser.infrastructure.exceptions import PageLoadingError, InvalidUrlError
-from src.scripts.study_programmes_parser.infrastructure.interfaces import StudyProgrammeSource, WebPageLoader, Parser
+from src.domain.entities.languages import Language
+from src.domain.entities.study_programme import StudyProgramme
+from src.infrastructure.exceptions import PageLoadingError, InvalidUrlError
+from src.infrastructure.interfaces import StudyProgrammeSource, WebPageLoader, Parser
 
 
 class StudyProgrammeGateway(StudyProgrammeSource):
