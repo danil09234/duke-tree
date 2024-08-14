@@ -22,4 +22,4 @@ ENV db_host $db_host
 ENV db_port $db_port
 ENV db_name $db_name
 
-ENTRYPOINT ["python", "-u", "-m", "src.scripts.study_programmes_parser.cli"]
+ENTRYPOINT ["python", "-u", "-m", "src.scripts.study_programmes_parser.presentation.cli.app"]
