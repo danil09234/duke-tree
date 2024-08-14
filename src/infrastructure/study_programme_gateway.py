@@ -1,5 +1,5 @@
 import asyncio
-from typing import Optional
+from typing import Optional, Generator, Coroutine, Any
 
 from src.domain.entities.languages import Language
 from src.domain.entities.study_programme import StudyProgramme
@@ -27,10 +27,12 @@ class StudyProgrammeGateway(StudyProgrammeSource):
             raise InvalidUrlError from e
 
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
-        pages = await asyncio.gather(
-            *(
-                self._load_with_error_handling(self._get_page_url(code, language))
-                for code in programmes_codes for language in Language
-            )
-        )
+        pages = await asyncio.gather(*await self._get_all_pages_loading_coroutines(programmes_codes))
         return self._parser.parse_multiple(pages)
+
+    async def _get_all_pages_loading_coroutines(self, programmes_codes: list[str]) \
+            -> Generator[Coroutine[Any, Any, Optional[str]], None, None]:
+        return (
+            self._load_with_error_handling(self._get_page_url(code, language))
+            for code in programmes_codes for language in Language
+        )
