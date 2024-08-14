@@ -1,7 +1,7 @@
 name: duke
 services:
-  study-programmes-parser:
-    container_name: duke-study-programmes-parser
+  duke-cli:
+    container_name: duke-cli
     build:
       context: .
       dockerfile: Dockerfile

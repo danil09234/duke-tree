@@ -2,7 +2,7 @@ from src.domain.entities.study_programme import StudyProgramme
 from src.application.interfaces import Parser
 
 
-class HtmlStudyProgrammeParser(Parser[str, StudyProgramme]):
+class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
     def parse_one(self, page: str) -> StudyProgramme:
         """
         Extracts information about a study programme from its page, returning a StudyProgramme object.

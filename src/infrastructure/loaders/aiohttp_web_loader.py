@@ -3,7 +3,7 @@ from src.application.interfaces import WebPageLoader
 type url = str
 
 
-class AiohttpWebPageLoader(WebPageLoader):
+class AiohttpWebLoader(WebPageLoader):
     async def load(self, page_url: url) -> str:
         """
         Loads the content of a web page.

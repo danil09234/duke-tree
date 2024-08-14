@@ -2,4 +2,4 @@
 
 docker compose down -v
 docker compose build
-docker compose run study-programmes-parser "$@"
+docker compose run duke-cli "$@"
