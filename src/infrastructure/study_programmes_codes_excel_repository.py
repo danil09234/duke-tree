@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.infrastructure.interfaces import Repository
+from src.application.interfaces import Repository
 
 
 class StudyProgrammesCodesExcelRepository(Repository[str]):

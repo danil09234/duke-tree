@@ -2,7 +2,7 @@ import asyncio
 from typing import Optional
 
 from src.infrastructure.exceptions import PageLoadingError, InvalidUrlError
-from src.infrastructure.interfaces import Repository, WebPageLoader
+from src.application.interfaces import Repository, WebPageLoader
 from src.domain.entities.languages import Language
 
 

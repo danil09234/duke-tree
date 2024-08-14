@@ -4,7 +4,7 @@ from typing import Optional
 from src.domain.entities.languages import Language
 from src.domain.entities.study_programme import StudyProgramme
 from src.infrastructure.exceptions import PageLoadingError, InvalidUrlError
-from src.infrastructure.interfaces import StudyProgrammeSource, WebPageLoader, Parser
+from src.application.interfaces import StudyProgrammeSource, WebPageLoader, Parser
 
 
 class StudyProgrammeGateway(StudyProgrammeSource):

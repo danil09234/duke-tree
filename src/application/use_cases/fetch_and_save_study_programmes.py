@@ -1,5 +1,5 @@
-from src.infrastructure.interfaces import Savable, Parser, StudyProgrammeSource
-from src.infrastructure.interfaces import Repository
+from src.application.interfaces import Savable, Parser, StudyProgrammeSource
+from src.application.interfaces import Repository
 from src.domain.entities.study_programme import StudyProgramme
 
 

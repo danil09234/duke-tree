@@ -1,4 +1,4 @@
-from src.infrastructure.interfaces import WebPageLoader
+from src.application.interfaces import WebPageLoader
 
 type url = str
 

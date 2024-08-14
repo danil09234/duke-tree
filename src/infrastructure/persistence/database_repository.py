@@ -1,6 +1,6 @@
 from src.database.models import StudyProgramme
 from src.domain.entities.study_programme import StudyProgramme
-from src.infrastructure.interfaces import Savable
+from src.application.interfaces import Savable
 
 
 class PostgresStudyProgrammesRepository(Savable[StudyProgramme]):
