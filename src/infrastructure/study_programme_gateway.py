@@ -10,7 +10,7 @@ from src.application.interfaces import StudyProgrammeSource, WebPageLoader, Pars
 class StudyProgrammeGateway(StudyProgrammeSource):
     _PROGRAMME_PAGE_URL_TEMPLATE = "https://res.tuke.sk/api/programme_detail/{code}?lang={lang}"
 
-    def __init__(self, loader: WebPageLoader, parser: Parser[StudyProgramme]):
+    def __init__(self, loader: WebPageLoader, parser: Parser[str, StudyProgramme]):
         self._loader = loader
         self._parser = parser
 

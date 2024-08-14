@@ -13,7 +13,7 @@ class Savable[T](Protocol):
         ...
 
 
-class Repository[T](Protocol):
+class Fetchable[T](Protocol):
     async def fetch_all(self) -> list[T]:
         """
         Fetches data.

@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from src.application.interfaces import Repository
+from src.application.interfaces import Fetchable
 
 
-class StudyProgrammesCodesExcelRepository(Repository[str]):
+class StudyProgrammesCodesExcelRepository(Fetchable[str]):
     def __init__(self, file_path: Path):
         self._file_path = file_path
 
