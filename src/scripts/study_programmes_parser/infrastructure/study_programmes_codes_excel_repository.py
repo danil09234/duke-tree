@@ -1,0 +1,16 @@
+from pathlib import Path
+
+from src.scripts.study_programmes_parser.infrastructure.interfaces import Repository
+
+
+class StudyProgrammesCodesExcelRepository(Repository[str]):
+    def __init__(self, file_path: Path):
+        self._file_path = file_path
+
+    async def fetch_all(self) -> list[str]:
+        """
+        Fetches study programmes codes from an Excel file.
+
+        :return: List of study programmes codes.
+        """
+        return []
