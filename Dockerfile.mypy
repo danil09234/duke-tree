@@ -10,5 +10,8 @@ RUN rm ./requirements.txt
 
 COPY src ./src
 
+ENV TERM=ansi
+ENV MYPY_FORCE_COLOR=1
+
 ENTRYPOINT ["mypy"]
 CMD ["src", "--enable-incomplete-feature=NewGenericSyntax"]
