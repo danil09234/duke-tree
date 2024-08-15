@@ -4,6 +4,14 @@ from src.domain.entities.study_programme import StudyProgramme
 
 
 class Savable[T](Protocol):
+    async def save(self, one_object: T) -> None:
+        """
+        Saves the study programme.
+
+        :param one_object: Study programme.
+        """
+        ...
+
     async def save_multiple(self, objects: list[T]) -> None:
         """
         Saves the list of study programmes.

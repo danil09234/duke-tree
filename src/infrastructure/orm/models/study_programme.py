@@ -1,9 +1,9 @@
-from sqlalchemy import Integer, String, Text, ForeignKey
-from sqlalchemy import Enum as SQLAlchemyEnum
+from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .base import Base
-from .enums import StudyForm, Degree
+from src.infrastructure.orm.models import Base
+from src.infrastructure.orm.enums import StudyForm, Degree, Language
+from sqlalchemy import Enum as SQLAlchemyEnum
 
 
 class StudyProgramme(Base):
@@ -19,5 +19,5 @@ class StudyProgramme(Base):
     length_of_study_in_years: Mapped[int] = mapped_column(Integer, nullable=False)
     professionally_oriented: Mapped[bool] = mapped_column(Integer, nullable=False)
     joint_study_program: Mapped[bool] = mapped_column(Integer, nullable=False)
-    languages_of_delivery: Mapped[int] = mapped_column(Integer, ForeignKey("languages.id"), nullable=False)
+    languages_of_delivery: Mapped[Language] = mapped_column(SQLAlchemyEnum(Language), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)

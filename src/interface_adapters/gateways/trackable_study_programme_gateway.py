@@ -1,7 +1,7 @@
 from typing import Awaitable, Callable
 
 from src.domain.entities.study_programme import StudyProgramme
-from src.infrastructure.gateways.study_programme_gateway import StudyProgrammeGateway, WebPageLoader, Parser
+from src.interface_adapters.gateways.study_programme_gateway import StudyProgrammeGateway, WebPageLoader, Parser
 
 
 class TrackableStudyProgrammeGateway(StudyProgrammeGateway):

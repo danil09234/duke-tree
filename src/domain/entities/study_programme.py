@@ -1,5 +1,9 @@
 from typing import NamedTuple
 
+from src.domain.enums.degree import Degree
+from src.domain.enums.languages import Language
+from src.domain.enums.study_form import StudyForm
+
 
 class StudyProgramme(NamedTuple):
     """
@@ -10,10 +14,10 @@ class StudyProgramme(NamedTuple):
     name: str
     study_field: str
     level_of_degree: int
-    study_form: str
-    degree: str
+    study_form: StudyForm
+    degree: Degree
     length_of_study_in_years: int
     professionally_oriented: bool
     joint_study_program: bool
-    languages_of_delivery: str
+    languages_of_delivery: Language
     description: str
