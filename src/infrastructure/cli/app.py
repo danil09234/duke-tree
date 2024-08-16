@@ -31,10 +31,10 @@ def cli():
 @click.argument("study_programmes_codes_excel_file_path", type=Path)
 def save_study_programmes(study_programmes_codes_excel_file_path: Path):
     database_config = SQLAlchemyDatabaseConfig()
-    database_engine_factory = EngineFactory()
-    database_session_maker_factory = SessionMakerFactory()
-    database_engine = database_engine_factory.create(database_config.async_database_url)
-    session_maker = database_session_maker_factory.create(database_engine)
+    database_engine_factory = EngineFactory(database_config.async_database_url)
+    database_engine = database_engine_factory.create()
+    database_session_maker_factory = SessionMakerFactory(database_engine)
+    session_maker = database_session_maker_factory.create()
     database_initializer = DatabaseInitializer(
         engine=database_engine, session_maker=session_maker, base=Base, config=database_config
     )

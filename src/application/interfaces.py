@@ -31,6 +31,15 @@ class Fetchable[T](Protocol):
         ...
 
 
+class Creator[T](Protocol):
+    def create(self) -> T:
+        """
+        Creates an object.
+
+        :return: Created object.
+        """
+
+
 class WebPageLoader(Protocol):
     async def load(self, url: str) -> str:
         """
