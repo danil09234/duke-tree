@@ -1,5 +1,7 @@
-from loguru import logger, Logger
-from typing import Any, overload
+from loguru import logger
+from typing import Any
+
+from src.interface_adapters.interfaces import Logger
 
 
 class LoguruLogger(Logger):
@@ -11,7 +13,7 @@ class LoguruLogger(Logger):
 
     def success(self, message: str, *args: Any, **kwargs: Any) -> None:
         logger.success(message, *args, **kwargs)
-        
+
     def warning(self, message: str, *args: Any, **kwargs: Any) -> None:
         logger.warning(message, *args, **kwargs)
 
