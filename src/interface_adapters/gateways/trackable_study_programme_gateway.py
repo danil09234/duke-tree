@@ -1,12 +1,13 @@
-from typing import Awaitable, Callable
+from typing import Awaitable, Callable, Any
 
+from src.application.interfaces import WebPageLoader, Parser
 from src.domain.entities.study_programme import StudyProgramme
-from src.interface_adapters.gateways.study_programme_gateway import StudyProgrammeGateway, WebPageLoader, Parser
+from src.interface_adapters.gateways.study_programme_gateway import StudyProgrammeGateway
 
 
 class TrackableStudyProgrammeGateway(StudyProgrammeGateway):
     def __init__(self, loader: WebPageLoader, parser: Parser[str, StudyProgramme],
-                 gathering_function: Callable[..., Awaitable]):
+                 gathering_function: Callable[..., Awaitable[Any]]):
         super().__init__(loader, parser)
         self._gathering_function = gathering_function
 

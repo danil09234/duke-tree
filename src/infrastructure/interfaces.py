@@ -1,7 +1,7 @@
 from typing import Protocol
 
 
-class DatabaseConfig(Protocol):
+class DatabaseConfig[T](Protocol):
     @property
     def sync_database_url(self) -> str:
         ...
@@ -11,7 +11,7 @@ class DatabaseConfig(Protocol):
         ...
 
     @property
-    def defaults(self) -> list:
+    def defaults(self) -> list[T]:
         ...
 
 

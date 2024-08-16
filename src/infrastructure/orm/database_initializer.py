@@ -15,7 +15,7 @@ class DatabaseInitializer:
             engine: AsyncEngine,
             session_maker: async_sessionmaker[AsyncSession],
             base: Type[DeclarativeBase],
-            config: DatabaseConfig,
+            config: DatabaseConfig[Type[DeclarativeBase]],
             logger: Logger = LoguruLogger()
     ):
         self._engine = engine
@@ -24,7 +24,7 @@ class DatabaseInitializer:
         self._config = config
         self._logger = logger
 
-    async def init_models(self):
+    async def init_models(self) -> None:
         self._logger.info("Initializing models")
         async with self._engine.begin() as connection:
             self._logger.warning("Dropping all tables")
@@ -33,7 +33,7 @@ class DatabaseInitializer:
             await connection.run_sync(self._base.metadata.create_all)
             await connection.commit()
 
-    async def add_defaults(self):
+    async def add_defaults(self) -> None:
         self._logger.info("Adding defaults")
         async with self._session_maker() as session:
             session.add_all(self._config.defaults)

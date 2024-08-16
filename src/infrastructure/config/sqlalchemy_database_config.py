@@ -8,7 +8,7 @@ from src.infrastructure.orm.exceptions import DatabaseUserNotSetError, DatabaseP
     DatabaseHostNotSetError, DatabasePortNotSetError, DatabaseNameNotSetError
 
 
-class SQLAlchemyDatabaseConfig(DatabaseConfig):
+class SQLAlchemyDatabaseConfig(DatabaseConfig[Type[DeclarativeBase]]):
     def _build_sync_database_url(self) -> str:
         return f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
@@ -26,30 +26,30 @@ class SQLAlchemyDatabaseConfig(DatabaseConfig):
         self._async_database_url = self._build_async_database_url()
         self._defaults: list[Type[DeclarativeBase]] = []
 
-    def _init_db_name(self):
-        self._db_name = getenv("db_name")
-        if not self._db_name:
+    def _init_db_name(self) -> None:
+        if not (value := getenv("db_name")):
             raise DatabaseNameNotSetError
+        self._db_name = value
 
-    def _init_db_port(self):
-        self._db_port = getenv("db_port")
-        if not self._db_port:
+    def _init_db_port(self) -> None:
+        if not (value := getenv("db_port")):
             raise DatabasePortNotSetError
+        self._db_port = value
 
-    def _init_db_host(self):
-        self._db_host = getenv("db_host")
-        if not self._db_host:
+    def _init_db_host(self) -> None:
+        if not (value := getenv("db_host")):
             raise DatabaseHostNotSetError
+        self._db_host = value
 
-    def _init_db_password(self):
-        self._db_password = getenv("db_password")
-        if not self._db_password:
+    def _init_db_password(self) -> None:
+        if not (value := getenv("db_password")):
             raise DatabasePasswordNotSetError
+        self._db_password = value
 
-    def _init_db_user(self):
-        self._db_user = getenv("db_user")
-        if not self._db_user:
+    def _init_db_user(self) -> None:
+        if not (value := getenv("db_user")):
             raise DatabaseUserNotSetError
+        self._db_user = value
 
     @property
     def db_user(self) -> str:

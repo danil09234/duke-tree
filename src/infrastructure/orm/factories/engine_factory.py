@@ -21,6 +21,6 @@ class EngineFactory(Creator[AsyncEngine]):
         )
 
 
-class CConnection(Connection):
+class CConnection(Connection):  # type: ignore[misc]
     def _get_unique_id(self, prefix: str) -> str:
         return f"__asyncpg_{prefix}_{uuid4()}__"

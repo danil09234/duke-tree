@@ -23,13 +23,13 @@ from tqdm.asyncio import tqdm  # type: ignore
 
 
 @click.group()
-def cli():
+def cli() -> None:
     pass
 
 
 @cli.command()
 @click.argument("study_programmes_codes_excel_file_path", type=Path)
-def save_study_programmes(study_programmes_codes_excel_file_path: Path):
+def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
     database_config = SQLAlchemyDatabaseConfig()
     database_engine_factory = EngineFactory(database_config.async_database_url)
     database_engine = database_engine_factory.create()
