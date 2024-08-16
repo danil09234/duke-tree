@@ -1,8 +1,6 @@
 from typing import NamedTuple
 
-from src.domain.enums.degree import Degree
-from src.domain.enums.languages import Language
-from src.domain.enums.study_form import StudyForm
+from src.domain.enums import Degree, Language, StudyForm
 
 
 class StudyProgramme(NamedTuple):
