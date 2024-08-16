@@ -11,4 +11,4 @@ class AiohttpWebLoader(WebPageLoader):
         :param page_url: URL of the web page.
         :return: Content of the web page.
         """
-        return ""
+        raise NotImplementedError
