@@ -14,4 +14,4 @@ ENV TERM=ansi
 ENV MYPY_FORCE_COLOR=1
 
 ENTRYPOINT ["mypy"]
-CMD ["src", "--enable-incomplete-feature=NewGenericSyntax"]
+CMD ["src", "--strict", "--enable-incomplete-feature=NewGenericSyntax"]
