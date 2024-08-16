@@ -10,7 +10,6 @@ class Savable[T](Protocol):
 
         :param one_object: Study programme.
         """
-        ...
 
     async def save_multiple(self, objects: list[T]) -> None:
         """
@@ -18,7 +17,6 @@ class Savable[T](Protocol):
 
         :param objects: List of study programmes.
         """
-        ...
 
 
 class Fetchable[T](Protocol):
@@ -28,7 +26,6 @@ class Fetchable[T](Protocol):
 
         :return: Fetched data.
         """
-        ...
 
 
 class Creator[T](Protocol):
@@ -48,7 +45,6 @@ class WebPageLoader(Protocol):
         :param url: URL of the web page.
         :return: Content of the web page.
         """
-        ...
 
 
 class Parser[D, T](Protocol):
@@ -59,7 +55,6 @@ class Parser[D, T](Protocol):
         :param data: Data to parse.
         :return: Parsed data.
         """
-        ...
 
     def parse_multiple(self, data: Iterable[D]) -> list[T]:
         """
