@@ -14,7 +14,7 @@ from src.infrastructure.orm.mappers.sqlalchemy_study_programme_mapper import SQL
 from src.infrastructure.orm.models import Base
 from src.interface_adapters.parsers.study_programme_html_parser import StudyProgrammeHtmlParser
 from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
-from src.interface_adapters.loaders.aiohttp_web_loader import AiohttpWebLoader
+from src.infrastructure.loaders.aiohttp_web_loader import AiohttpWebLoader
 from src.interface_adapters.persistence.study_programmes_codes_excel_repository import \
     StudyProgrammesCodesExcelRepository
 from src.interface_adapters.gateways.trackable_study_programme_gateway import TrackableStudyProgrammeGateway
