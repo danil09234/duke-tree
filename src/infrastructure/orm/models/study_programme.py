@@ -21,3 +21,5 @@ class StudyProgramme(Base):
     joint_study_program: Mapped[bool] = mapped_column(Integer, nullable=False)
     languages_of_delivery: Mapped[Language] = mapped_column(SQLAlchemyEnum(Language), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
+    learning_objectives: Mapped[str] = mapped_column(Text, nullable=False)
+    main_learning_outcomes: Mapped[str] = mapped_column(Text, nullable=False)

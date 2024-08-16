@@ -21,3 +21,5 @@ class StudyProgramme(NamedTuple):
     joint_study_program: bool
     languages_of_delivery: Language
     description: str
+    learning_objectives: str
+    main_learning_outcomes: str
