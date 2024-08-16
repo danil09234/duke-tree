@@ -1,5 +1,5 @@
 import asyncio
-from typing import Optional, Generator, Coroutine, Any
+from typing import Optional, Generator, Coroutine, Any, Iterable
 
 from src.domain.entities import StudyProgramme
 from src.domain.enums import Language
@@ -26,10 +26,15 @@ class StudyProgrammeGateway(StudyProgrammeSource):
         except InvalidUrlError as e:
             raise InvalidUrlError from e
 
+    @staticmethod
+    def _remove_none_values[T](source: Iterable[T | None]) -> list[T]:
+        return [value for value in source if value is not None]
+
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
-        pages = await asyncio.gather(*await self._get_all_pages_loading_coroutines(programmes_codes))
-        without_none_pages = [page for page in pages if page is not None]
-        return self._parser.parse_multiple(without_none_pages)
+        all_page_loading_coroutines = await self._get_all_pages_loading_coroutines(programmes_codes)
+        gathered_values = await asyncio.gather(*all_page_loading_coroutines)
+        pages = self._remove_none_values(gathered_values)
+        return self._parser.parse_multiple(pages)
 
     async def _get_all_pages_loading_coroutines(self, programmes_codes: list[str]) \
             -> Generator[Coroutine[Any, Any, Optional[str]], None, None]:
