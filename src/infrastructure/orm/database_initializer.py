@@ -1,11 +1,12 @@
 from typing import Type
 
-from loguru import logger as loguru_logger
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy_utils import database_exists, create_database  # type: ignore
 
 from src.infrastructure.interfaces import DatabaseConfig
+from src.interface_adapters.interfaces import Logger
+from src.interface_adapters.loggers.loguru_logger import LoguruLogger
 
 
 class DatabaseInitializer:
@@ -15,7 +16,7 @@ class DatabaseInitializer:
             session_maker: async_sessionmaker[AsyncSession],
             base: Type[DeclarativeBase],
             config: DatabaseConfig,
-            logger=loguru_logger
+            logger: Logger = LoguruLogger()
     ):
         self._engine = engine
         self._session_maker = session_maker
