@@ -33,6 +33,7 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[StudyProgramme, StudyProgramme
     async def to_entity(self, source: StudyProgrammeORM) -> StudyProgramme:
         return StudyProgramme(
             page_url=source.page_url,
+            page_language=self._language_to_entity_mapper(source.page_language),
             name=source.name,
             study_field=source.study_field,
             level_of_degree=source.level_of_degree,
@@ -50,6 +51,7 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[StudyProgramme, StudyProgramme
     async def from_entity(self, entity: StudyProgramme) -> StudyProgrammeORM:
         return StudyProgrammeORM(
             page_url=entity.page_url,
+            page_language=self._language_to_orm_mapper(entity.page_language),
             name=entity.name,
             study_field=entity.study_field,
             level_of_degree=entity.level_of_degree,

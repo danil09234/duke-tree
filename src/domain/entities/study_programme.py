@@ -11,6 +11,7 @@ class StudyProgramme(NamedTuple):
     """
 
     page_url: str
+    page_language: Language
     name: str
     study_field: str
     level_of_degree: int
