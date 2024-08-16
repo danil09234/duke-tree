@@ -1,4 +1,4 @@
-from src.application.interfaces import Savable, StudyProgrammeSource
+from src.application.interfaces import Savable, StudyProgrammesSource
 from src.application.interfaces import Fetchable
 from src.domain.entities.study_programme import StudyProgramme
 
@@ -7,11 +7,11 @@ class FetchAndSaveStudyProgrammesUseCase:
     def __init__(
             self,
             codes_source: Fetchable[str],
-            study_programme_source: StudyProgrammeSource,
+            study_programmes_source: StudyProgrammesSource,
             storage: Savable[StudyProgramme]
     ):
         self._codes_source = codes_source
-        self._study_programmes_source = study_programme_source
+        self._study_programmes_source = study_programmes_source
         self._storage = storage
 
     async def __call__(self) -> None:

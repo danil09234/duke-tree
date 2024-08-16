@@ -66,6 +66,6 @@ class Parser[D, T](Protocol):
         return [self.parse_one(page) for page in data]
 
 
-class StudyProgrammeSource(Protocol):
+class StudyProgrammesSource(Protocol):
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
         ...

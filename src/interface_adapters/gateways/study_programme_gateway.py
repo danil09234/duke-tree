@@ -4,10 +4,10 @@ from typing import Optional, Generator, Coroutine, Any, Iterable
 from src.domain.entities import StudyProgramme
 from src.domain.enums import Language
 from src.interface_adapters.exceptions import PageLoadingError, InvalidUrlError
-from src.application.interfaces import StudyProgrammeSource, WebPageLoader, Parser
+from src.application.interfaces import StudyProgrammesSource, WebPageLoader, Parser
 
 
-class StudyProgrammeGateway(StudyProgrammeSource):
+class StudyProgrammesGateway(StudyProgrammesSource):
     _PROGRAMME_PAGE_URL_TEMPLATE = "https://res.tuke.sk/api/programme_detail/{code}?lang={lang}"
 
     def __init__(self, loader: WebPageLoader, parser: Parser[str, StudyProgramme]):
