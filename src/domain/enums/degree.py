@@ -5,3 +5,4 @@ class Degree(Enum):
     BACHELOR = 'Bachelor'
     MASTER = 'Master'
     DOCTOR = 'Doctor'
+    # TODO: Verify degree options
