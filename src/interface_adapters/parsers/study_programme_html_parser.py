@@ -13,6 +13,7 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
         :param study_form: String to map.
         :return: StudyForm enum.
         """
+        # TODO: Implement mapping a string to a StudyForm enum.
         raise NotImplementedError
 
     def _map_to_degree(self, degree: str) -> Degree:
@@ -22,6 +23,7 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
         :param degree: String to map.
         :return: Degree enum.
         """
+        # TODO: Implement mapping a string to a Degree enum.
         raise NotImplementedError
 
     def _map_to_language(self, language: str) -> Language:
@@ -31,6 +33,7 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
         :param language: String to map.
         :return: Language enum.
         """
+        # TODO: Implement mapping a string to a Language enum.
         raise NotImplementedError
 
     def parse_one(self, page: str) -> StudyProgramme:
@@ -40,4 +43,5 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
         :param page: Content of the page.
         :return: StudyProgramme object.
         """
+        # TODO: Implement extracting information about a study programme from the content of its page.
         raise NotImplementedError

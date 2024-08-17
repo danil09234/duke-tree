@@ -13,4 +13,5 @@ class StudyProgrammesCodesExcelRepository(Fetchable[str]):
 
         :return: List of study programmes codes.
         """
+        # TODO: Implement fetching study programmes codes from an Excel file.
         raise NotImplementedError
