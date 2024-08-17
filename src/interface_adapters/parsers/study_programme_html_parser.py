@@ -35,9 +35,9 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
 
     def parse_one(self, page: str) -> StudyProgramme:
         """
-        Extracts information about a study programme from its page, returning a StudyProgramme object.
+        Extracts information about a study programme from the content of its page, returning a StudyProgramme object.
 
-        :param page: URL of the page with the study programme.
+        :param page: Content of the page.
         :return: StudyProgramme object.
         """
         raise NotImplementedError
