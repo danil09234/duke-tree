@@ -5,7 +5,7 @@ from src.domain.enums import Degree, Language, StudyForm
 
 class StudyProgramme(NamedTuple):
     """
-    A intermediate data structure for storing parsed study programme data.
+    A data structure for storing study programme data.
     """
 
     page_url: str
