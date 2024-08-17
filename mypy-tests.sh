@@ -1,2 +1,2 @@
 docker build -t mypy-tests -f Dockerfile.mypy .
-docker run mypy-tests
+docker run mypy-tests "$@"
