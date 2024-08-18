@@ -1,2 +1,3 @@
-docker build -t unittests -f Dockerfile.unittests .
-docker run unittests "$@"
+#!/bin/sh
+
+pytest --color=yes tests/ "$@"
