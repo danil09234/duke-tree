@@ -155,17 +155,29 @@ def repository(
 
 
 @pytest.fixture
-def study_programmes_excel(tmp_path: Path) -> Path:
-    source_file_path = Path("resources/study_programmes.xlsx")
-    temp_file_path = tmp_path / source_file_path.name
-    shutil.copy(source_file_path, temp_file_path)
-
-    return temp_file_path
+def study_programmes_excel_standard(tmp_path: Path) -> Path:
+    return copy_file_in_tmp_path(Path("resources/study_programmes_standard.xlsx"), tmp_path)
 
 
 @pytest.fixture
-def study_programmes_codes() -> list[str]:
+def study_programmes_codes_standard() -> list[str]:
     return [
         "183878", "183842", "183841", "184093", "184100", "184098", "185072", "184092", "185071", "136215",
         "136229", "100978", "183568", "136254", "136253", "183559", "183569", "100985", "184622", "183596"
     ]
+
+
+@pytest.fixture
+def study_programmes_excel_empty(tmp_path: Path) -> Path:
+    return copy_file_in_tmp_path(Path("resources/study_programmes_empty.xlsx"), tmp_path)
+
+
+@pytest.fixture
+def study_programmes_excel_invalid(tmp_path: Path) -> Path:
+    return copy_file_in_tmp_path(Path("resources/study_programmes_invalid.xlsx"), tmp_path)
+
+
+def copy_file_in_tmp_path(source_file_path: Path, tmp_path: Path) -> Path:
+    temp_file_path = tmp_path / source_file_path.name
+    shutil.copy(source_file_path, temp_file_path)
+    return temp_file_path

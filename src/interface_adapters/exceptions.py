@@ -4,3 +4,7 @@ class InvalidUrlError(Exception):
 
 class PageLoadingError(Exception):
     pass
+
+
+class InvalidExcelFileStructure(Exception):
+    pass
