@@ -9,9 +9,10 @@ RUN pip install -r requirements.txt
 RUN rm ./requirements.txt
 
 COPY src ./src
+COPY tests ./tests
 
 ENV TERM=ansi
 ENV MYPY_FORCE_COLOR=1
 
 ENTRYPOINT ["mypy"]
-CMD ["src", "--strict", "--enable-incomplete-feature=NewGenericSyntax"]
+CMD ["src", "tests", "--strict", "--enable-incomplete-feature=NewGenericSyntax"]
