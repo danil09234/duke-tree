@@ -156,7 +156,7 @@ def repository(
 
 @pytest.fixture
 def study_programmes_excel_standard(tmp_path: Path) -> Path:
-    return copy_file_in_tmp_path(Path("resources/study_programmes_standard.xlsx"), tmp_path)
+    return copy_file_in_tmp_path(Path("tests/resources/study_programmes_standard.xlsx"), tmp_path)
 
 
 @pytest.fixture
@@ -169,12 +169,12 @@ def study_programmes_codes_standard() -> list[str]:
 
 @pytest.fixture
 def study_programmes_excel_empty(tmp_path: Path) -> Path:
-    return copy_file_in_tmp_path(Path("resources/study_programmes_empty.xlsx"), tmp_path)
+    return copy_file_in_tmp_path(Path("tests/resources/study_programmes_empty.xlsx"), tmp_path)
 
 
 @pytest.fixture
 def study_programmes_excel_invalid(tmp_path: Path) -> Path:
-    return copy_file_in_tmp_path(Path("resources/study_programmes_invalid.xlsx"), tmp_path)
+    return copy_file_in_tmp_path(Path("tests/resources/study_programmes_invalid.xlsx"), tmp_path)
 
 
 def copy_file_in_tmp_path(source_file_path: Path, tmp_path: Path) -> Path:
