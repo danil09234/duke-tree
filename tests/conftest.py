@@ -1,3 +1,5 @@
+import shutil
+from pathlib import Path
 from typing import Type, AsyncIterator
 from unittest.mock import create_autospec
 
@@ -150,3 +152,20 @@ def repository(
         session_maker=async_session_maker,
         study_programme_mapper=mapper
     )
+
+
+@pytest.fixture
+def study_programmes_excel(tmp_path: Path) -> Path:
+    source_file_path = Path("resources/study_programmes.xlsx")
+    temp_file_path = tmp_path / source_file_path.name
+    shutil.copy(source_file_path, temp_file_path)
+
+    return temp_file_path
+
+
+@pytest.fixture
+def study_programmes_codes() -> list[str]:
+    return [
+        "183878", "183842", "183841", "184093", "184100", "184098", "185072", "184092", "185071", "136215",
+        "136229", "100978", "183568", "136254", "136253", "183559", "183569", "100985", "184622", "183596"
+    ]
