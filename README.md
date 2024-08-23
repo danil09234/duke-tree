@@ -74,3 +74,24 @@ The project follows Clean Architecture principles with the following package str
 - **application**: Corresponds to the use cases/application business rules layer.
 - **interface_adapters**: Corresponds to the interface adapters layer.
 - **infrastructure**: Corresponds to the frameworks/drivers layer.
+
+## Optional: Virtual Environment Configuration (macOS)
+
+If you'd like to set up a Python virtual environment for local development, follow these steps:
+
+1. **Create a Virtual Environment**:
+   ```bash
+   python3 -m venv venv
+   ```
+
+2. **Activate the Virtual Environment**:
+   ```bash
+   source venv/bin/activate
+   ```
+
+3. **Install the Project Requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+This setup is useful during development.
