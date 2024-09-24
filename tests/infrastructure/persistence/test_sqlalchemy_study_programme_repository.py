@@ -38,5 +38,5 @@ async def test_save_multiple_study_programmes(
         result = await session.execute(select(StudyProgrammeORM))
         saved_programmes = result.scalars().all()
 
-        for i, study_programme in enumerate(test_study_programmes):
-            assert_study_programme_entity_equals_orm(study_programme, saved_programmes[i])
+        for index, study_programme in enumerate(test_study_programmes):
+            assert_study_programme_entity_equals_orm(study_programme, saved_programmes[index])
