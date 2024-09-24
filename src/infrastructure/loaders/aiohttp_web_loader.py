@@ -11,5 +11,4 @@ class AiohttpWebLoader(WebPageLoader):
         :param page_url: URL of the web page.
         :return: Content of the web page.
         """
-        # TODO: Implement loading the content of a web page using aiohttp.
-        raise NotImplementedError
+        raise NotImplementedError  # TODO: Implement loading the content of a web page using aiohttp.
