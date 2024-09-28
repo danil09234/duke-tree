@@ -17,7 +17,7 @@ from src.infrastructure.persistence.sqlalchemy_study_programme_repository import
 from src.infrastructure.loaders.aiohttp_web_loader import AiohttpWebLoader
 from src.interface_adapters.persistence.study_programmes_codes_excel_repository import \
     StudyProgrammesCodesExcelRepository
-from src.interface_adapters.gateways.trackable_study_programme_gateway import TrackableStudyProgrammeGateway
+from src.interface_adapters.gateways.trackable_study_programmes_gateway import TrackableStudyProgrammeGateway
 
 from tqdm.asyncio import tqdm  # type: ignore
 

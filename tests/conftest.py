@@ -109,6 +109,54 @@ def test_study_programmes() -> list[StudyProgramme]:
             description="Description of Programme 3",
             learning_objectives="Learning objectives of Programme 3",
             main_learning_outcomes="Main learning outcomes of Programme 3"
+        ),
+        StudyProgramme(
+            page_url="https://example.com/programme4",
+            page_language=Language.ENGLISH,
+            name="Programme 4",
+            study_field="Electrical Engineering",
+            level_of_degree=2,
+            study_form=StudyForm.PRESENT,
+            degree=Degree.MASTER,
+            length_of_study_in_years=2,
+            professionally_oriented=True,
+            joint_study_program=True,
+            languages_of_delivery=Language.ENGLISH,
+            description="Description of Programme 4",
+            learning_objectives="Learning objectives of Programme 4",
+            main_learning_outcomes="Main learning outcomes of Programme 4"
+        ),
+        StudyProgramme(
+            page_url="https://example.com/programme5",
+            page_language=Language.ENGLISH,
+            name="Programme 5",
+            study_field="Civil Engineering",
+            level_of_degree=1,
+            study_form=StudyForm.PRESENT,
+            degree=Degree.BACHELOR,
+            length_of_study_in_years=3,
+            professionally_oriented=False,
+            joint_study_program=False,
+            languages_of_delivery=Language.ENGLISH,
+            description="Description of Programme 5",
+            learning_objectives="Learning objectives of Programme 5",
+            main_learning_outcomes="Main learning outcomes of Programme 5"
+        ),
+        StudyProgramme(
+            page_url="https://example.com/programme6",
+            page_language=Language.ENGLISH,
+            name="Programme 6",
+            study_field="Architecture",
+            level_of_degree=2,
+            study_form=StudyForm.PRESENT,
+            degree=Degree.MASTER,
+            length_of_study_in_years=2,
+            professionally_oriented=True,
+            joint_study_program=True,
+            languages_of_delivery=Language.ENGLISH,
+            description="Description of Programme 6",
+            learning_objectives="Learning objectives of Programme 6",
+            main_learning_outcomes="Main learning outcomes of Programme 6"
         )
     ]
 
