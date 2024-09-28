@@ -12,5 +12,5 @@ class TrackableStudyProgrammeGateway(StudyProgrammesGateway):
         self._gathering_function = gathering_function
 
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
-        pages = await self._gathering_function(*await self._get_all_pages_loading_coroutines_generator(programmes_codes))
+        pages = await self._gathering_function(*self._get_all_pages_loading_coroutines_generator(programmes_codes))
         return self._parser.parse_multiple(pages)
