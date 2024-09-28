@@ -11,30 +11,30 @@ The entire project is dockerized. To get started, follow these steps:
 
    ### .env Template
     ```env
-    DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
-    DB_HOST=your_db_host
-    DB_PORT=your_db_port
-    DB_NAME=your_db_name
+    db_user=your_db_user
+    db_password=your_db_password
+    db_host=your_db_host
+    db_port=your_db_port
+    db_name=your_db_name
     ```
 
    ### Description
-    - **DB_USER**: The username for your database connection. For example, `"postgres"`.
-    - **DB_PASSWORD**: The password for your database connection. For example, `"postgres"`.
-    - **DB_HOST**: The hostname for the database service. Use `"database"` as it corresponds to the Docker container
+    - **db_user**: The username for your database connection. For example, `"postgres"`.
+    - **db_password**: The password for your database connection. For example, `"postgres"`.
+    - **db_host**: The hostname for the database service. Use `"database"` as it corresponds to the Docker container
       name.
-    - **DB_PORT**: The port number on which your database server listens. For example, `5432`.
-    - **DB_NAME**: The name of the database to connect to. For example, `"duke"`.
+    - **db_port**: The port number on which your database server listens. For example, `5432`.
+    - **db_name**: The name of the database to connect to. For example, `"duke"`.
 
    These variables configure the PostgreSQL database service that the project will use.
    
    ### Complete .env Example
     ```env
-    DB_USER=postgres
-    DB_PASSWORD=postgres
-    DB_HOST=database
-    DB_PORT=5432
-    DB_NAME=duke
+    db_user=postgres
+    db_password=postgres
+    db_host=database
+    db_port=5432
+    db_name=duke
     ```
 
 3. **Run `duke-cli`**: To execute the `duke-cli` command, use the following command:
