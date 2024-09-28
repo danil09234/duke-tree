@@ -15,12 +15,12 @@ class StudyProgrammesGateway(StudyProgrammesSource):
         self._parser = parser
 
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
-        all_page_loading_coroutines = await self._get_all_pages_loading_coroutines(programmes_codes)
+        all_page_loading_coroutines = self._get_all_pages_loading_coroutines_generator(programmes_codes)
         gathered_values = await asyncio.gather(*all_page_loading_coroutines)
         pages = self._remove_none_values(gathered_values)
         return self._parser.parse_multiple(pages)
 
-    async def _get_all_pages_loading_coroutines(self, programmes_codes: list[str]) \
+    def _get_all_pages_loading_coroutines_generator(self, programmes_codes: list[str]) \
             -> Generator[Coroutine[Any, Any, Optional[str]], None, None]:
         return (
             self._load_with_error_handling(self._get_page_url(code, language))
