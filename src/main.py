@@ -1,7 +1,5 @@
 import asyncio
-from pathlib import Path
 
-from interface_adapters.persistence.study_programmes_codes_excel_repository import StudyProgrammesCodesExcelRepository
 from src.infrastructure.cli.app import cli
 
 
