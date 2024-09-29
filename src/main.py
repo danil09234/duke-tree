@@ -9,7 +9,6 @@ async def main():
     cli()
 
     # Test extracting study programmes codes from an Excel file
-
     # file_path = Path("../resources/study_programmes.xlsx")
     # repository = StudyProgrammesCodesExcelRepository(file_path)
     # study_programmes_codes = await repository.fetch_all()
