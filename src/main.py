@@ -5,7 +5,7 @@ from interface_adapters.persistence.study_programmes_codes_excel_repository impo
 from src.infrastructure.cli.app import cli
 
 
-async def main():
+async def main() -> None:
     cli()
 
     # Test extracting study programmes codes from an Excel file
