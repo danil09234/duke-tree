@@ -14,6 +14,11 @@ class StudyProgrammesCodesExcelRepository(Fetchable[str]):
         self._file_path = file_path
 
     async def fetch_all(self) -> list[str]:
+        """
+        Fetches study programmes codes from an Excel file.
+
+        :return: List of study programmes codes.
+        """
         worksheet = self._get_worksheet()
         programme_codes = self._get_list_of_codes(worksheet)
         return programme_codes
