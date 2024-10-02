@@ -5,14 +5,14 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from tests.common.assert_study_programme_entity_equals_orm import assert_study_programme_entity_equals_orm
 from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
-from src.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 
 
 @pytest.mark.asyncio
 async def test_save_single_study_programme(
         repository: SQLAlchemyStudyProgrammeRepository,
         async_session_maker: async_sessionmaker[AsyncSession],
-        test_study_programme: StudyProgramme
+        test_study_programme: TukeStudyProgramme
 ) -> None:
     await repository.save(test_study_programme)
 
@@ -30,7 +30,7 @@ async def test_save_single_study_programme(
 async def test_save_multiple_study_programmes(
         repository: SQLAlchemyStudyProgrammeRepository,
         async_session_maker: async_sessionmaker[AsyncSession],
-        test_study_programmes: list[StudyProgramme]
+        test_study_programmes: list[TukeStudyProgramme]
 ) -> None:
     await repository.save_multiple(test_study_programmes)
 

@@ -2,10 +2,10 @@ from src.domain.enums import StudyForm, Degree, Language
 from src.infrastructure.orm.enums import StudyForm as StudyFormORM, Degree as DegreeORM, Language as LanguageORM
 from src.infrastructure.interfaces import EntityMapper
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
-from src.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 
 
-class SQLAlchemyStudyProgrammeMapper(EntityMapper[StudyProgramme, StudyProgrammeORM]):
+class SQLAlchemyStudyProgrammeMapper(EntityMapper[TukeStudyProgramme, StudyProgrammeORM]):
     @staticmethod
     def _study_form_to_orm_mapper(study_form: StudyForm) -> StudyFormORM:
         return StudyFormORM(study_form.value)
@@ -30,8 +30,8 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[StudyProgramme, StudyProgramme
     def _language_to_entity_mapper(language: LanguageORM) -> Language:
         return Language(language.value)
 
-    async def to_entity(self, source: StudyProgrammeORM) -> StudyProgramme:
-        return StudyProgramme(
+    async def to_entity(self, source: StudyProgrammeORM) -> TukeStudyProgramme:
+        return TukeStudyProgramme(
             page_url=source.page_url,
             page_language=self._language_to_entity_mapper(source.page_language),
             name=source.name,
@@ -48,7 +48,7 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[StudyProgramme, StudyProgramme
             main_learning_outcomes=source.main_learning_outcomes,
         )
 
-    async def from_entity(self, entity: StudyProgramme) -> StudyProgrammeORM:
+    async def from_entity(self, entity: TukeStudyProgramme) -> StudyProgrammeORM:
         return StudyProgrammeORM(
             page_url=entity.page_url,
             page_language=self._language_to_orm_mapper(entity.page_language),

@@ -5,7 +5,7 @@ import click
 
 from src.application.interfaces import StudyProgrammesSource, Fetchable, Savable, WebPageLoader, Parser
 from src.application.use_cases.fetch_and_save_study_programmes import FetchAndSaveStudyProgrammesUseCase
-from src.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.infrastructure.config.sqlalchemy_database_config import SQLAlchemyDatabaseConfig
 from src.infrastructure.orm.database_initializer import DatabaseInitializer
 from src.infrastructure.orm.factories.engine_factory import EngineFactory
@@ -42,12 +42,12 @@ def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
 
     codes_source: Fetchable[str] = StudyProgrammesCodesExcelRepository(study_programmes_codes_excel_file_path)
     web_page_loader: WebPageLoader = AiohttpWebLoader()
-    html_parser: Parser[str, StudyProgramme] = StudyProgrammeHtmlParser()
+    html_parser: Parser[str, TukeStudyProgramme] = StudyProgrammeHtmlParser()
     study_programmes_gateway: StudyProgrammesSource = TrackableStudyProgrammeGateway(
         web_page_loader, html_parser, tqdm.gather
     )
     study_programme_mapper = SQLAlchemyStudyProgrammeMapper()
-    storage: Savable[StudyProgramme] = SQLAlchemyStudyProgrammeRepository(session_maker, study_programme_mapper)
+    storage: Savable[TukeStudyProgramme] = SQLAlchemyStudyProgrammeRepository(session_maker, study_programme_mapper)
     use_case = FetchAndSaveStudyProgrammesUseCase(codes_source, study_programmes_gateway, storage)
     asyncio.run(use_case())
 

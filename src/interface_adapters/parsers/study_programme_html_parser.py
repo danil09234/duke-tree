@@ -1,11 +1,11 @@
-from src.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.application.interfaces import Parser
 from src.domain.enums.degree import Degree
 from src.domain.enums.languages import Language
 from src.domain.enums.study_form import StudyForm
 
 
-class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
+class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
     def _map_to_study_form(self, study_form: str) -> StudyForm:
         """
         Maps a string to a StudyForm enum.
@@ -36,7 +36,7 @@ class StudyProgrammeHtmlParser(Parser[str, StudyProgramme]):
         # TODO: Implement mapping a string to a Language enum.
         raise NotImplementedError
 
-    def parse_one(self, page: str) -> StudyProgramme:
+    def parse_one(self, page: str) -> TukeStudyProgramme:
         """
         Extracts information about a study programme from the content of its page, returning a StudyProgramme object.
 

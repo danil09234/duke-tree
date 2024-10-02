@@ -3,9 +3,9 @@ from typing import NamedTuple
 from src.domain.enums import Degree, Language, StudyForm
 
 
-class StudyProgramme(NamedTuple):
+class TukeStudyProgramme(NamedTuple):
     """
-    A data structure for storing study programme data.
+    A data structure for storing study programme data, which TUKE university provides.
     """
 
     page_url: str
