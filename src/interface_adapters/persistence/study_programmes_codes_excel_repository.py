@@ -23,12 +23,18 @@ class StudyProgrammesCodesExcelRepository(Fetchable[str]):
         programme_codes = self._get_list_of_codes(worksheet)
         return programme_codes
 
-    @classmethod
-    def _get_list_of_codes(cls, worksheet: Worksheet) -> list[str]:
-        return [str(cell.value) for cell in cls._iter_codes_column(worksheet)]
+    def _get_worksheet(self) -> Worksheet:
+        workbook = openpyxl.load_workbook(self._file_path)
+        worksheet: Worksheet = workbook.active
+        return worksheet
 
     @classmethod
-    def _iter_codes_column(cls, worksheet: Worksheet) -> Generator[Any, None, None]:
+    def _get_list_of_codes(cls, worksheet: Worksheet) -> list[str]:
+        codes_cells_generator = cls._get_codes_cells_generator(worksheet)
+        return [str(cell.value) for cell in codes_cells_generator]
+
+    @classmethod
+    def _get_codes_cells_generator(cls, worksheet: Worksheet) -> Generator[Any, None, None]:
         for current_row in cls._get_rows_range(worksheet):
             current_cell = cls._get_code_cell(worksheet, current_row)
             cls._assert_is_valid_code_cell(current_cell)
@@ -42,9 +48,11 @@ class StudyProgrammesCodesExcelRepository(Fetchable[str]):
         return range(first_row_number, last_row_number)
 
     @staticmethod
-    def _assert_is_valid_code_cell(code_cell: Cell) -> None:
-        if not code_cell.value and code_cell.row != code_cell.parent.max_row:
-            raise InvalidExcelFileStructure(f"Cell A{code_cell} is empty")
+    def _sheet_has_header(worksheet: Worksheet) -> bool:
+        header_row = worksheet[1]
+        header_cells_values = [cell.value for cell in header_row]
+        has_header = any(isinstance(cell, str) for cell in header_cells_values)
+        return has_header
 
     @staticmethod
     def _get_code_cell(worksheet: Worksheet, row: int) -> Cell:
@@ -52,12 +60,7 @@ class StudyProgrammesCodesExcelRepository(Fetchable[str]):
         return cell
 
     @staticmethod
-    def _sheet_has_header(worksheet: Worksheet) -> bool:
-        first_row = [cell.value for cell in worksheet[1]]
-        has_header = any(isinstance(cell, str) for cell in first_row)
-        return has_header
-
-    def _get_worksheet(self) -> Worksheet:
-        workbook = openpyxl.load_workbook(self._file_path)
-        worksheet: Worksheet = workbook.active
-        return worksheet
+    def _assert_is_valid_code_cell(code_cell: Cell) -> None:
+        last_row = code_cell.parent.max_row
+        if not code_cell.value and code_cell.row != last_row:
+            raise InvalidExcelFileStructure(f"Cell A{code_cell} is empty")
