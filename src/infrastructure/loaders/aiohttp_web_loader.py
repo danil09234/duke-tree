@@ -16,4 +16,5 @@ class AiohttpWebLoader(WebPageLoader):
         async with aiohttp.ClientSession() as session:
             async with session.get(page_url) as response:
                 response.raise_for_status()
-                return await response.text()
+                content: str = await response.text()
+                return content
