@@ -1,3 +1,5 @@
+import aiohttp
+
 from src.application.interfaces import WebPageLoader
 
 type url = str
@@ -11,4 +13,7 @@ class AiohttpWebLoader(WebPageLoader):
         :param page_url: URL of the web page.
         :return: Content of the web page.
         """
-        raise NotImplementedError  # TODO: Implement loading the content of a web page using aiohttp.
+        async with aiohttp.ClientSession() as session:
+            async with session.get(page_url) as response:
+                response.raise_for_status()
+                return await response.text()
