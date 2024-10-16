@@ -59,9 +59,9 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :return: StudyForm enum.
         """
         if study_form.lower() == 'denná' or study_form.lower() == 'denna':
-            return StudyForm.PRESENT.value
+            return StudyForm.PRESENT
         elif study_form.lower() == 'externa' or study_form.lower() == 'externá':
-            return StudyForm.EXTERNAL.value
+            return StudyForm.EXTERNAL
         else:
             raise ValueError(f"Unknown study form: {study_form}")
 
@@ -74,11 +74,11 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :return: Degree enum.
         """
         if degree.lower() == '1.' or degree.lower() == '1':
-            return Degree.BACHELOR.value
+            return Degree.BACHELOR
         elif degree.lower() == '2.' or degree.lower() == '2':
-            return Degree.MASTER.value
+            return Degree.MASTER
         elif degree.lower() == '3.' or degree.lower() == '3':
-            return Degree.DOCTOR.value
+            return Degree.DOCTOR
         else:
             raise ValueError(f"Unknown degree: {degree}")
 
@@ -91,9 +91,9 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :return: Language enum.
         """
         if language.lower() == 'anglický jazyk' or language.lower() == 'anglicky jazyk':
-            return Language.ENGLISH.value
+            return Language.ENGLISH
         elif language.lower() == 'slovenský jazyk' or language.lower() == 'slovensky jazyk':
-            return Language.SLOVAK.value
+            return Language.SLOVAK
         else:
             raise ValueError(f"Unknown language: {language}")
 
