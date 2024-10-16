@@ -8,7 +8,8 @@ from src.application.interfaces import StudyProgrammesSource, WebPageLoader, Par
 
 
 class StudyProgrammesGateway(StudyProgrammesSource):
-    _PROGRAMME_PAGE_URL_TEMPLATE = "https://res.tuke.sk/api/programme_detail/{code}?lang={lang}"
+    # _PROGRAMME_PAGE_URL_TEMPLATE = "https://res.tuke.sk/api/programme_detail/{code}?lang={lang}"
+    _PROGRAMME_PAGE_URL_TEMPLATE = "https://www.portalvs.sk/{lang}/morho/zobrazit/{code}"
 
     def __init__(self, loader: WebPageLoader, parser: Parser[str, TukeStudyProgramme]):
         self._loader = loader
