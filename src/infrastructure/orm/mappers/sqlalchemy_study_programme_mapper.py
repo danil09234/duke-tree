@@ -35,6 +35,7 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[TukeStudyProgramme, StudyProgr
             page_url=source.page_url,
             page_language=self._language_to_entity_mapper(source.page_language),
             name=source.name,
+            programme_code=source.id,
             study_field=source.study_field,
             level_of_degree=source.level_of_degree,
             study_form=self._study_form_to_entity_mapper(source.study_form),
@@ -46,6 +47,7 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[TukeStudyProgramme, StudyProgr
             description=source.description,
             learning_objectives=source.learning_objectives,
             main_learning_outcomes=source.main_learning_outcomes,
+            faculty=source.faculty,
         )
 
     async def from_entity(self, entity: TukeStudyProgramme) -> StudyProgrammeORM:

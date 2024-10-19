@@ -45,6 +45,7 @@ def test_study_programme() -> TukeStudyProgramme:
         page_url="https://example.com/programme",
         page_language=Language.ENGLISH,
         name="Programme",
+        programme_code=000000,
         study_field="Computer Science",
         level_of_degree=1,
         study_form=StudyForm.PRESENT,
@@ -55,7 +56,8 @@ def test_study_programme() -> TukeStudyProgramme:
         languages_of_delivery=Language.ENGLISH,
         description="Description of Programme",
         learning_objectives="Learning objectives of Programme",
-        main_learning_outcomes="Main learning outcomes of Programme"
+        main_learning_outcomes="Main learning outcomes of Programme",
+        faculty="Faculty"
     )
 
 
@@ -66,6 +68,7 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             page_url="https://example.com/programme1",
             page_language=Language.ENGLISH,
             name="Programme 1",
+            programme_code=111111,
             study_field="Computer Science",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -76,12 +79,14 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 1",
             learning_objectives="Learning objectives of Programme 1",
-            main_learning_outcomes="Main learning outcomes of Programme 1"
+            main_learning_outcomes="Main learning outcomes of Programme 1",
+            faculty="Faculty 1"
         ),
         TukeStudyProgramme(
             page_url="https://example.com/programme2",
             page_language=Language.ENGLISH,
             name="Programme 2",
+            programme_code=222222,
             study_field="Mechanical Engineering",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -92,12 +97,14 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 2",
             learning_objectives="Learning objectives of Programme 2",
-            main_learning_outcomes="Main learning outcomes of Programme 2"
+            main_learning_outcomes="Main learning outcomes of Programme 2",
+            faculty="Faculty 2"
         ),
         TukeStudyProgramme(
             page_url="https://example.com/programme3",
             page_language=Language.ENGLISH,
             name="Programme 3",
+            programme_code=333333,
             study_field="Business Administration",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -108,12 +115,14 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 3",
             learning_objectives="Learning objectives of Programme 3",
-            main_learning_outcomes="Main learning outcomes of Programme 3"
+            main_learning_outcomes="Main learning outcomes of Programme 3",
+            faculty="Faculty 3"
         ),
         TukeStudyProgramme(
             page_url="https://example.com/programme4",
             page_language=Language.ENGLISH,
             name="Programme 4",
+            programme_code=444444,
             study_field="Electrical Engineering",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -124,12 +133,14 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 4",
             learning_objectives="Learning objectives of Programme 4",
-            main_learning_outcomes="Main learning outcomes of Programme 4"
+            main_learning_outcomes="Main learning outcomes of Programme 4",
+            faculty="Faculty 4"
         ),
         TukeStudyProgramme(
             page_url="https://example.com/programme5",
             page_language=Language.ENGLISH,
             name="Programme 5",
+            programme_code=555555,
             study_field="Civil Engineering",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -140,12 +151,14 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 5",
             learning_objectives="Learning objectives of Programme 5",
-            main_learning_outcomes="Main learning outcomes of Programme 5"
+            main_learning_outcomes="Main learning outcomes of Programme 5",
+            faculty="Faculty 5"
         ),
         TukeStudyProgramme(
             page_url="https://example.com/programme6",
             page_language=Language.ENGLISH,
             name="Programme 6",
+            programme_code=666666,
             study_field="Architecture",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -156,7 +169,8 @@ def test_study_programmes() -> list[TukeStudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 6",
             learning_objectives="Learning objectives of Programme 6",
-            main_learning_outcomes="Main learning outcomes of Programme 6"
+            main_learning_outcomes="Main learning outcomes of Programme 6",
+            faculty="Faculty 6"
         )
     ]
 

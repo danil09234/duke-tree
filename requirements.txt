@@ -34,3 +34,4 @@ types-openpyxl==3.0.0
 typing_extensions==4.12.2
 urllib3==2.2.2
 wrapt==1.16.0
+aiohttp~=3.10.10

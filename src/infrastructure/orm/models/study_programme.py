@@ -24,3 +24,4 @@ class StudyProgramme(Base):
     description: Mapped[str] = mapped_column(Text, nullable=False)
     learning_objectives: Mapped[str] = mapped_column(Text, nullable=False)
     main_learning_outcomes: Mapped[str] = mapped_column(Text, nullable=False)
+    faculty: Mapped[str] = mapped_column(String, nullable=False)

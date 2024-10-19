@@ -1,3 +1,6 @@
+from collections import defaultdict
+from typing import Union
+
 from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.application.interfaces import Parser
 from src.domain.enums.degree import Degree
@@ -46,11 +49,10 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :return: Dictionary with extracted key-value pairs.
         """
         section = soup.find(tag, class_=class_name)
-        if not section:
+        if not isinstance(section, Tag):
             return {}
-
         table = section.find('table', class_='table')
-        if not table:
+        if not isinstance(table, Tag):
             return {}
 
         return self._extract_table_data(table)
@@ -63,7 +65,7 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :param table: BeautifulSoup object representing the HTML table.
         :return: Dictionary with extracted key-value pairs.
         """
-        data = {}
+        data: defaultdict[str, str] = defaultdict(str)
         for row in table.find_all('tr'):
             th = row.find('th')
             td = row.find('td')
@@ -71,9 +73,9 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
             if th and td:
                 key = th.text.strip()
                 value = td.text.strip()
-                if key not in data:
+                if not data[key]:
                     data[key] = value
-        return data
+        return dict(data)
 
     def _create_study_programme(self, data: dict[str, str]) -> TukeStudyProgramme:
         """
