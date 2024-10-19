@@ -20,7 +20,7 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         data = self._extract_data_from_page(soup)
         return self._create_study_programme(data)
 
-    def _extract_data_from_page(self, soup: BeautifulSoup) -> dict:
+    def _extract_data_from_page(self, soup: BeautifulSoup) -> dict[str, str]:
         """
         Extracts data from the HTML page content.
 
@@ -71,7 +71,7 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
                     data[key] = value
         return data
 
-    def _create_study_programme(self, data) -> TukeStudyProgramme:
+    def _create_study_programme(self, data: dict[str, str]) -> TukeStudyProgramme:
         """
             Creates a TukeStudyProgramme object from the extracted data.
 
@@ -92,7 +92,7 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
             professionally_oriented=self._map_to_professionally_oriented(data.get("Profesijne orientovaný:", "")
                                                                          or data.get("Professionally oriented:", "")),
             joint_study_program=self._map_to_joint_study_program(data.get("Spoločný študijný program:", "")
-                                                                 or data.get("Common study program:")),
+                                                                 or data.get("Common study program:", "")),
             languages_of_delivery=self._map_to_language(data.get("Jazyky poskytovania:", "") or
                                                         data.get("Languages of provision:", "")),
             description="",
