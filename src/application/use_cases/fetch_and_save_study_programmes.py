@@ -7,7 +7,7 @@ class FetchAndSaveStudyProgrammesUseCase:
     def __init__(
             self,
             codes_source: Fetchable[str],
-            study_programmes_source: StudyProgrammesSource,
+            study_programmes_source: StudyProgrammesSource[TukeStudyProgramme],
             storage: Savable[TukeStudyProgramme]
     ):
         self._codes_source = codes_source
