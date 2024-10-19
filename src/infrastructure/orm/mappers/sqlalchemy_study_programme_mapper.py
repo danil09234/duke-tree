@@ -66,4 +66,5 @@ class SQLAlchemyStudyProgrammeMapper(EntityMapper[TukeStudyProgramme, StudyProgr
             description=entity.description,
             learning_objectives=entity.learning_objectives,
             main_learning_outcomes=entity.main_learning_outcomes,
+            faculty=entity.faculty,
         )
