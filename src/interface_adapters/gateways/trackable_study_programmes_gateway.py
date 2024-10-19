@@ -2,10 +2,10 @@ from typing import Awaitable, Callable, Any
 
 from src.application.interfaces import WebPageLoader, Parser
 from src.domain.entities.tuke_study_programme import TukeStudyProgramme
-from src.interface_adapters.gateways.study_programmes_gateway import StudyProgrammesGateway
+from src.interface_adapters.gateways.tuke_study_programmes_gateway import TukeStudyProgrammesGateway
 
 
-class TrackableStudyProgrammeGateway(StudyProgrammesGateway):
+class TrackableTukeStudyProgrammeGateway(TukeStudyProgrammesGateway):
     def __init__(self, loader: WebPageLoader, parser: Parser[str, TukeStudyProgramme],
                  gathering_function: Callable[..., Awaitable[Any]]):
         super().__init__(loader, parser)

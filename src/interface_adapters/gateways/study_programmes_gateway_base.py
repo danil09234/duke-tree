@@ -1,21 +1,20 @@
 import asyncio
-from typing import Optional, Generator, Coroutine, Any, Iterable
+from abc import ABC
+from typing import Generator, Coroutine, Any, Optional, Iterable
 
-from src.domain.entities import TukeStudyProgramme
+from src.interface_adapters.exceptions import InvalidUrlError, PageLoadingError
 from src.domain.enums import Language
-from src.interface_adapters.exceptions import PageLoadingError, InvalidUrlError
-from src.application.interfaces import StudyProgrammesSource, WebPageLoader, Parser
+from src.application.interfaces import WebPageLoader, Parser
 
 
-class StudyProgrammesGateway(StudyProgrammesSource):
-    # _PROGRAMME_PAGE_URL_TEMPLATE = "https://res.tuke.sk/api/programme_detail/{code}?lang={lang}"
-    _PROGRAMME_PAGE_URL_TEMPLATE = "https://www.portalvs.sk/{lang}/morho/zobrazit/{code}"
+class StudyProgrammesGatewayBase[O](ABC):
+    _URL_TEMPLATE = "https://www.example.com/{lang}/{code}"
 
-    def __init__(self, loader: WebPageLoader, parser: Parser[str, TukeStudyProgramme]):
+    def __init__(self, loader: WebPageLoader, parser: Parser[str, O]):
         self._loader = loader
         self._parser = parser
 
-    async def get_by_codes(self, programmes_codes: list[str]) -> list[TukeStudyProgramme]:
+    async def get_by_codes(self, programmes_codes: list[str]) -> list[O]:
         all_page_loading_coroutines = self._get_all_pages_loading_coroutines_generator(programmes_codes)
         gathered_values = await asyncio.gather(*all_page_loading_coroutines)
         pages = self._remove_none_values(gathered_values)
@@ -30,7 +29,7 @@ class StudyProgrammesGateway(StudyProgrammesSource):
 
     @classmethod
     def _get_page_url(cls, study_programme_code: str, language: Language) -> str:
-        return cls._PROGRAMME_PAGE_URL_TEMPLATE.format(code=study_programme_code, lang=language.value)
+        return cls._URL_TEMPLATE.format(code=study_programme_code, lang=language.value)
 
     async def _load_with_error_handling(self, url: str) -> Optional[str]:
         try:

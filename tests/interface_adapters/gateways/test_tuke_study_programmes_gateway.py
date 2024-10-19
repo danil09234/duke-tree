@@ -6,7 +6,7 @@ from src.interface_adapters.exceptions import PageLoadingError
 from src.domain.enums import Language
 from src.domain.entities import TukeStudyProgramme
 from src.application.interfaces import WebPageLoader, Parser
-from src.interface_adapters.gateways.study_programmes_gateway import StudyProgrammesGateway
+from src.interface_adapters.gateways.tuke_study_programmes_gateway import TukeStudyProgrammesGateway
 
 
 @pytest.mark.asyncio
@@ -24,7 +24,7 @@ async def test_get_by_codes(test_codes: list[str], test_study_programmes: list[T
         Parser[str, TukeStudyProgramme], parse_one=parse_one_mock, parse_multiple=parse_multiple_mock, spec_set=True
     )
 
-    gateway = StudyProgrammesGateway(loader=loader_mock, parser=study_programmes_source_mock)
+    gateway = TukeStudyProgrammesGateway(loader=loader_mock, parser=study_programmes_source_mock)
     gateway_return_values = await gateway.get_by_codes(test_codes)
     assert gateway_return_values == test_study_programmes
 
@@ -52,7 +52,7 @@ async def test_get_by_codes_with_exception_during_page_loading(
         Parser[str, TukeStudyProgramme], parse_one=parse_one_mock, parse_multiple=parse_multiple_mock, spec_set=True
     )
 
-    gateway = StudyProgrammesGateway(loader=loader_mock, parser=study_programmes_source_mock)
+    gateway = TukeStudyProgrammesGateway(loader=loader_mock, parser=study_programmes_source_mock)
     await gateway.get_by_codes(test_codes)
 
     try:
