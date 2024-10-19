@@ -16,11 +16,15 @@ class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
         :param page: Content of the page.
         :return: StudyProgramme object.
         """
-        soup = BeautifulSoup(page, 'html.parser')
-        data = self._extract_data_from_page(soup)
+        page_soup = self._get_page_soup(page)
+        data = self._extract_data_from_page_soup(page_soup)
         return self._create_study_programme(data)
 
-    def _extract_data_from_page(self, soup: BeautifulSoup) -> dict[str, str]:
+    @staticmethod
+    def _get_page_soup(page: str) -> BeautifulSoup:
+        return BeautifulSoup(page, 'html.parser')
+
+    def _extract_data_from_page_soup(self, soup: BeautifulSoup) -> dict[str, str]:
         """
         Extracts data from the HTML page content.
 
