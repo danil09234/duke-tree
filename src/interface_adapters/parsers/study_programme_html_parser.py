@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import Union
 
 from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.application.interfaces import Parser
