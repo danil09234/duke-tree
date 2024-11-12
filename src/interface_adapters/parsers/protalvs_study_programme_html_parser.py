@@ -8,7 +8,7 @@ from src.domain.enums.study_form import StudyForm
 from bs4 import BeautifulSoup, Tag
 
 
-class StudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
+class PortalvsStudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):
     _PROGRAMME_PAGE_URL_TEMPLATE = "https://www.portalvs.sk/{lang}/morho/zobrazit/{code}"
 
     def parse_one(self, page: str) -> TukeStudyProgramme:

@@ -12,7 +12,7 @@ from src.infrastructure.orm.factories.engine_factory import EngineFactory
 from src.infrastructure.orm.factories.session_maker_factory import SessionMakerFactory
 from src.infrastructure.orm.mappers.sqlalchemy_study_programme_mapper import SQLAlchemyStudyProgrammeMapper
 from src.infrastructure.orm.models import Base
-from src.interface_adapters.parsers.study_programme_html_parser import StudyProgrammeHtmlParser
+from src.interface_adapters.parsers.protalvs_study_programme_html_parser import PortalvsStudyProgrammeHtmlParser
 from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
 from src.infrastructure.loaders.aiohttp_web_loader import AiohttpWebLoader
 from src.interface_adapters.persistence.study_programmes_codes_excel_repository import \
@@ -42,7 +42,7 @@ def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
 
     codes_source: Fetchable[str] = StudyProgrammesCodesExcelRepository(study_programmes_codes_excel_file_path)
     web_page_loader: WebPageLoader = AiohttpWebLoader()
-    html_parser: Parser[str, TukeStudyProgramme] = StudyProgrammeHtmlParser()
+    html_parser: Parser[str, TukeStudyProgramme] = PortalvsStudyProgrammeHtmlParser()
     study_programmes_gateway: StudyProgrammesSource[TukeStudyProgramme] = TrackableTukeStudyProgrammeGateway(
         web_page_loader, html_parser, tqdm.gather
     )
