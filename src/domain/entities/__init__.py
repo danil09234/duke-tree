@@ -1,5 +1,5 @@
-from .study_programme import StudyProgramme
+from .tuke_study_programme import TukeStudyProgramme
 
 __all__ = [
-    "StudyProgramme",
+    "TukeStudyProgramme",
 ]

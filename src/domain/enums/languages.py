@@ -2,6 +2,6 @@ from enum import Enum
 
 
 class Language(Enum):
-    ENGLISH = 'English'
-    SLOVAK = 'Slovak'
+    ENGLISH = 'en'
+    SLOVAK = 'sk'
     # TODO: Verify language options

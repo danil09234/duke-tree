@@ -8,7 +8,7 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 
-from src.domain.entities import StudyProgramme
+from src.domain.entities import TukeStudyProgramme
 from src.domain.enums import Language, StudyForm, Degree
 from src.infrastructure.interfaces import DatabaseConfig
 from src.infrastructure.orm.database_initializer import DatabaseInitializer
@@ -40,11 +40,12 @@ class TestDatabaseConfig(DatabaseConfig[Type[DeclarativeBase]]):
 
 
 @pytest.fixture
-def test_study_programme() -> StudyProgramme:
-    return StudyProgramme(
+def test_study_programme() -> TukeStudyProgramme:
+    return TukeStudyProgramme(
         page_url="https://example.com/programme",
         page_language=Language.ENGLISH,
         name="Programme",
+        programme_code=000000,
         study_field="Computer Science",
         level_of_degree=1,
         study_form=StudyForm.PRESENT,
@@ -55,17 +56,19 @@ def test_study_programme() -> StudyProgramme:
         languages_of_delivery=Language.ENGLISH,
         description="Description of Programme",
         learning_objectives="Learning objectives of Programme",
-        main_learning_outcomes="Main learning outcomes of Programme"
+        main_learning_outcomes="Main learning outcomes of Programme",
+        faculty="Faculty"
     )
 
 
 @pytest.fixture
-def test_study_programmes() -> list[StudyProgramme]:
+def test_study_programmes() -> list[TukeStudyProgramme]:
     return [
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme1",
             page_language=Language.ENGLISH,
             name="Programme 1",
+            programme_code=111111,
             study_field="Computer Science",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -76,12 +79,14 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 1",
             learning_objectives="Learning objectives of Programme 1",
-            main_learning_outcomes="Main learning outcomes of Programme 1"
+            main_learning_outcomes="Main learning outcomes of Programme 1",
+            faculty="Faculty 1"
         ),
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme2",
             page_language=Language.ENGLISH,
             name="Programme 2",
+            programme_code=222222,
             study_field="Mechanical Engineering",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -92,12 +97,14 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 2",
             learning_objectives="Learning objectives of Programme 2",
-            main_learning_outcomes="Main learning outcomes of Programme 2"
+            main_learning_outcomes="Main learning outcomes of Programme 2",
+            faculty="Faculty 2"
         ),
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme3",
             page_language=Language.ENGLISH,
             name="Programme 3",
+            programme_code=333333,
             study_field="Business Administration",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -108,12 +115,14 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 3",
             learning_objectives="Learning objectives of Programme 3",
-            main_learning_outcomes="Main learning outcomes of Programme 3"
+            main_learning_outcomes="Main learning outcomes of Programme 3",
+            faculty="Faculty 3"
         ),
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme4",
             page_language=Language.ENGLISH,
             name="Programme 4",
+            programme_code=444444,
             study_field="Electrical Engineering",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -124,12 +133,14 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 4",
             learning_objectives="Learning objectives of Programme 4",
-            main_learning_outcomes="Main learning outcomes of Programme 4"
+            main_learning_outcomes="Main learning outcomes of Programme 4",
+            faculty="Faculty 4"
         ),
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme5",
             page_language=Language.ENGLISH,
             name="Programme 5",
+            programme_code=555555,
             study_field="Civil Engineering",
             level_of_degree=1,
             study_form=StudyForm.PRESENT,
@@ -140,12 +151,14 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 5",
             learning_objectives="Learning objectives of Programme 5",
-            main_learning_outcomes="Main learning outcomes of Programme 5"
+            main_learning_outcomes="Main learning outcomes of Programme 5",
+            faculty="Faculty 5"
         ),
-        StudyProgramme(
+        TukeStudyProgramme(
             page_url="https://example.com/programme6",
             page_language=Language.ENGLISH,
             name="Programme 6",
+            programme_code=666666,
             study_field="Architecture",
             level_of_degree=2,
             study_form=StudyForm.PRESENT,
@@ -156,7 +169,8 @@ def test_study_programmes() -> list[StudyProgramme]:
             languages_of_delivery=Language.ENGLISH,
             description="Description of Programme 6",
             learning_objectives="Learning objectives of Programme 6",
-            main_learning_outcomes="Main learning outcomes of Programme 6"
+            main_learning_outcomes="Main learning outcomes of Programme 6",
+            faculty="Faculty 6"
         )
     ]
 

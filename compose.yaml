@@ -1,7 +1,6 @@
 name: duke
 services:
   duke-cli:
-    container_name: duke-cli
     build:
       context: .
       dockerfile: Dockerfile
@@ -26,7 +25,6 @@ services:
         - action: rebuild
           path: ./ClientsBot/requirements.txt
   database:
-    container_name: duke-database
     image: postgres:16
     restart: always
     ports:

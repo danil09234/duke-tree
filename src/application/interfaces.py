@@ -1,6 +1,6 @@
 from typing import Protocol, Iterable
 
-from src.domain.entities.study_programme import StudyProgramme
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 
 
 class Savable[T](Protocol):
@@ -66,6 +66,6 @@ class Parser[D, T](Protocol):
         return [self.parse_one(page) for page in data]
 
 
-class StudyProgrammesSource(Protocol):
-    async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
+class StudyProgrammesSource[O](Protocol):
+    async def get_by_codes(self, programmes_codes: list[str]) -> list[O]:
         ...

@@ -1,9 +1,9 @@
-from src.domain.entities import StudyProgramme
+from src.domain.entities import TukeStudyProgramme
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
 
 
 def assert_study_programme_entity_equals_orm(
-        study_programme: StudyProgramme,
+        study_programme: TukeStudyProgramme,
         orm_study_programme: StudyProgrammeORM
 ) -> None:
     assert orm_study_programme.name == study_programme.name
