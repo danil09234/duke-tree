@@ -5,6 +5,7 @@ from unittest.mock import create_autospec
 
 import pytest
 import pytest_asyncio
+from _pytest.tmpdir import TempPathFactory
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 
@@ -237,6 +238,19 @@ def study_programmes_excel_empty(tmp_path: Path) -> Path:
 @pytest.fixture
 def study_programmes_excel_invalid(tmp_path: Path) -> Path:
     return copy_file_in_tmp_path(Path("tests/resources/study_programmes_invalid.xlsx"), tmp_path)
+
+
+@pytest.fixture(scope="class")
+def res_tuke_test_page_sk(tmp_path_factory: TempPathFactory) -> Path:
+    tmp_dir = tmp_path_factory.mktemp("res_tuke_sk")
+    return copy_file_in_tmp_path(Path("tests/resources/res_tuke_test_page_sk.html"), tmp_dir)
+
+
+@pytest.fixture(scope="class")
+def res_tuke_test_page_en(tmp_path_factory: TempPathFactory) -> Path:
+    tmp_dir = tmp_path_factory.mktemp("res_tuke_en")
+    source_file = Path("tests/resources/res_tuke_test_page_en.html")
+    return copy_file_in_tmp_path(source_file, tmp_dir)
 
 
 def copy_file_in_tmp_path(source_file_path: Path, tmp_path: Path) -> Path:

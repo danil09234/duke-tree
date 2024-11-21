@@ -95,3 +95,9 @@ If you'd like to set up a Python virtual environment for local development, foll
    ```
 
 This setup is useful during development.
+
+## License
+© Made by Vladyslav Panik & Danylo Zahorulko for thesis project at the Technical University of Košice
+KPI FEI TUKE, 2024-2025
+```
+
