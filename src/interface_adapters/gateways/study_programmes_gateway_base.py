@@ -1,5 +1,6 @@
 import asyncio
 from abc import ABC
+from asyncio import Semaphore
 from typing import Generator, Coroutine, Any, Optional, Iterable, NamedTuple
 
 from src.interface_adapters.exceptions import InvalidUrlError, PageLoadingError
@@ -25,6 +26,8 @@ class StudyProgrammesGatewayBase[Data](ABC):
         self._loader = loader
         self._language_parser_factory = language_parser_factory
 
+        self._semaphore = Semaphore(5)
+
     async def get_by_codes(self, programmes_codes: list[str]) -> list[Page[Data]]:
         all_page_loading_coroutines = self._get_all_pages_loading_coroutines_generator(programmes_codes)
         gathered_values = await asyncio.gather(*all_page_loading_coroutines)
@@ -42,6 +45,10 @@ class StudyProgrammesGatewayBase[Data](ABC):
     @classmethod
     def _get_page_url(cls, study_programme_code: str, language: Language) -> str:
         return cls._URL_TEMPLATE.format(code=study_programme_code, lang=language.value)
+
+    async def _load_with_concurrency_limit(self, metadata: PageMetadata) -> Optional[Page[str]]:
+        async with self._semaphore:
+            return await self._load_with_metadata(metadata)
 
     async def _load_with_metadata(self, metadata: PageMetadata) -> Optional[Page[str]]:
         page_text = await self._load_with_error_handling(metadata.url)
