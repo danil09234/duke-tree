@@ -1,6 +1,6 @@
 from typing import Protocol, Iterable
 
-from src.domain.entities.tuke_study_programme import TukeStudyProgramme
+from src.domain.enums import Language
 
 
 class Savable[T](Protocol):
@@ -47,8 +47,8 @@ class WebPageLoader(Protocol):
         """
 
 
-class Parser[D, T](Protocol):
-    def parse_one(self, data: D) -> T:
+class Parser[RawData, ParsedData](Protocol):
+    def parse_one(self, data: RawData) -> ParsedData:
         """
         Parses the data.
 
@@ -56,7 +56,7 @@ class Parser[D, T](Protocol):
         :return: Parsed data.
         """
 
-    def parse_multiple(self, data: Iterable[D]) -> list[T]:
+    def parse_multiple(self, data: Iterable[RawData]) -> list[ParsedData]:
         """
         Parses the data.
 
@@ -68,4 +68,9 @@ class Parser[D, T](Protocol):
 
 class StudyProgrammesSource[O](Protocol):
     async def get_by_codes(self, programmes_codes: list[str]) -> list[O]:
+        ...
+
+
+class LanguageParserFactory[Parser](Protocol):
+    def create(self, language: Language) -> Parser:
         ...

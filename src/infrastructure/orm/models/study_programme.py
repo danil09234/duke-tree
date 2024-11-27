@@ -11,6 +11,7 @@ class StudyProgramme(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     page_url: Mapped[str] = mapped_column(String, nullable=False)
+    programme_code: Mapped[str] = mapped_column(String, nullable=False)
     page_language: Mapped[Language] = mapped_column(SQLAlchemyEnum(Language), nullable=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     study_field: Mapped[str] = mapped_column(String, nullable=False)
