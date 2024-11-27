@@ -1,5 +1,6 @@
 import aiohttp
 
+from src.interface_adapters.exceptions import PageLoadingError
 from src.application.interfaces import WebPageLoader
 
 type url = str
@@ -13,8 +14,14 @@ class AiohttpWebLoader(WebPageLoader):
         :param page_url: URL of the web page.
         :return: Content of the web page.
         """
-        async with aiohttp.ClientSession() as session:
-            async with session.get(page_url) as response:
-                response.raise_for_status()
-                content: str = await response.text()
-                return content
+        async with aiohttp.ClientSession(trust_env=True) as session:
+            try:
+                async with session.get(page_url) as response:
+                    try:
+                        response.raise_for_status()
+                    except aiohttp.ClientResponseError as e:
+                        raise PageLoadingError from e
+                    content: str = await response.text()
+                    return content
+            except aiohttp.ClientError as e:
+                raise PageLoadingError from e
