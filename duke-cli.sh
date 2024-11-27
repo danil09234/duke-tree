@@ -2,4 +2,14 @@
 
 docker compose down --remove-orphans -v
 docker compose build
-docker compose run duke-cli "$@"
+
+volumes=()
+
+for arg in "$@"; do
+  if [ -f "$arg" ]; then
+    host_dir=$(dirname "$(realpath "$arg")")
+    volumes+=("-v" "${host_dir}:${host_dir}:ro")
+  fi
+done
+
+docker compose run "${volumes[@]}" duke-cli "$@"
