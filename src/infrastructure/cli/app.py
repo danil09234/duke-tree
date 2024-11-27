@@ -40,7 +40,8 @@ def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
     database_initializer = DatabaseInitializer(
         engine=database_engine, session_maker=session_maker, base=Base, config=database_config
     )
-    asyncio.run(database_initializer.init_database())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(database_initializer.init_database())
 
     codes_source: Fetchable[str] = StudyProgrammesCodesExcelRepository(study_programmes_codes_excel_file_path)
     web_page_loader: WebPageLoader = AiohttpWebLoader()
@@ -53,7 +54,8 @@ def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
     study_programme_mapper = SQLAlchemyStudyProgrammeMapper()
     storage: Savable[Page[ResTukeStudyProgrammeData]] = SQLAlchemyStudyProgrammeRepository(session_maker, study_programme_mapper)
     use_case = FetchAndSaveStudyProgrammesUseCase(codes_source, study_programmes_gateway, storage)
-    asyncio.run(use_case())
+
+    loop.run_until_complete(use_case())
 
 
 if __name__ == "__main__":
