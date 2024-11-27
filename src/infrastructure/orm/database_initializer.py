@@ -56,9 +56,9 @@ class DatabaseInitializer:
                 self._logger.info("Creating database")
                 create_database(sync_url)
                 self._logger.success("Database was created")
-                await self.init_models()
-                await self.add_defaults()
             else:
                 self._logger.info("Database was found")
+            await self.init_models()
+            await self.add_defaults()
 
         self._logger.success("Database initialization was finished")

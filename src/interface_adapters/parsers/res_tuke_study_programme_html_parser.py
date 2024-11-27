@@ -33,6 +33,8 @@ class ResTukeStudyProgrammeHtmlParser(Parser[str, ResTukeStudyProgrammeData]):
             'Bc.': Degree.BACHELOR,
             'Ing.': Degree.MASTER,
             'PhD.': Degree.DOCTOR,
+            'mgr. art.': Degree.ART_MASTER,
+            'artd.': Degree.ARTD,
         }
         if self.page_language == Language.SLOVAK:
             self._STUDY_FORM_MAPPING = {
