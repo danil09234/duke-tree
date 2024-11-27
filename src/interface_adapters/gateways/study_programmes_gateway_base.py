@@ -33,10 +33,11 @@ class StudyProgrammesGatewayBase[Data](ABC):
 
     def _get_all_pages_loading_coroutines_generator(self, programmes_codes: list[str]) \
             -> Generator[Coroutine[Any, Any, Optional[Page[str]]], None, None]:
-        for language in Language:
-            for code in programmes_codes:
-                page_url = self._get_page_url(code, language)
-                yield self._load_with_metadata(PageMetadata(language, code, page_url))
+        return (
+            self._load_with_metadata(PageMetadata(language, code, self._get_page_url(code, language)))
+            for language in Language
+            for code in programmes_codes
+        )
 
     @classmethod
     def _get_page_url(cls, study_programme_code: str, language: Language) -> str:
