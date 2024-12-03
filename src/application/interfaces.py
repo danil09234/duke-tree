@@ -1,5 +1,6 @@
 from typing import Protocol, Iterable
 
+from src.domain.entities.question_tree import QuestionsTree
 from src.domain.enums import Language
 
 
@@ -76,6 +77,15 @@ class StudyProgrammesRepositoryByCodes[StudyProgramme](Protocol):
         """
 
 
+class AllStudyProgrammesRepository[StudyProgramme](Protocol):
+    async def get_all(self) -> list[StudyProgramme]:
+        """
+        Fetches all study programmes.
+
+        :return: List of study programmes.
+        """
+
+
 class LanguageParserFactory[Parser](Protocol):
     def create(self, language: Language) -> Parser:
         """
@@ -83,4 +93,14 @@ class LanguageParserFactory[Parser](Protocol):
 
         :param language: Language.
         :return: Parser.
+        """
+
+
+class QuestionTreeGenerator[StudyProgrammeData](Protocol):
+    async def generate(self, study_programmes: list[StudyProgrammeData]) -> QuestionsTree[StudyProgrammeData]:
+        """
+        Generates questions tree based on study programmes.
+
+        :param study_programmes: List of study programmes.
+        :return: Questions tree.
         """
