@@ -3,15 +3,15 @@ from typing import Protocol, Iterable
 from src.domain.enums import Language
 
 
-class Savable[T](Protocol):
-    async def save(self, one_object: T) -> None:
+class Savable[Object](Protocol):
+    async def save(self, one_object: Object) -> None:
         """
         Saves the study programme.
 
         :param one_object: Study programme.
         """
 
-    async def save_multiple(self, objects: list[T]) -> None:
+    async def save_multiple(self, objects: list[Object]) -> None:
         """
         Saves the list of study programmes.
 
@@ -19,8 +19,8 @@ class Savable[T](Protocol):
         """
 
 
-class Fetchable[T](Protocol):
-    async def fetch_all(self) -> list[T]:
+class Fetchable[Object](Protocol):
+    async def fetch_all(self) -> list[Object]:
         """
         Fetches data.
 
@@ -28,8 +28,8 @@ class Fetchable[T](Protocol):
         """
 
 
-class Creator[T](Protocol):
-    def create(self) -> T:
+class Creator[Object](Protocol):
+    def create(self) -> Object:
         """
         Creates an object.
 
