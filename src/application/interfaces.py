@@ -77,12 +77,12 @@ class StudyProgrammesRepositoryByCodes[StudyProgramme](Protocol):
         """
 
 
-class AllStudyProgrammesRepository[StudyProgramme](Protocol):
-    async def get_all(self) -> list[StudyProgramme]:
+class GetAllRepository[Object](Protocol):
+    async def get_all(self) -> list[Object]:
         """
-        Fetches all study programmes.
+        Fetches all objects.
 
-        :return: List of study programmes.
+        :return: List of objects.
         """
 
 
