@@ -6,7 +6,7 @@ import click
 from src.interface_adapters.factories.language_parser_factory import ResTukeLanguageParserFactory
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.application.interfaces import StudyProgrammesSource, Fetchable, Savable, WebPageLoader, Parser, \
+from src.application.interfaces import StudyProgrammesRepositoryByCodes, Fetchable, Savable, WebPageLoader, Parser, \
     LanguageParserFactory
 from src.application.use_cases.fetch_and_save_study_programmes import FetchAndSaveStudyProgrammesUseCase
 from src.infrastructure.config.sqlalchemy_database_config import SQLAlchemyDatabaseConfig
@@ -46,7 +46,7 @@ def save_study_programmes(study_programmes_codes_excel_file_path: Path) -> None:
     codes_source: Fetchable[str] = StudyProgrammesCodesExcelRepository(study_programmes_codes_excel_file_path)
     web_page_loader: WebPageLoader = AiohttpWebLoader()
     parser_factory: LanguageParserFactory[Parser[str, ResTukeStudyProgrammeData]] = ResTukeLanguageParserFactory()
-    study_programmes_gateway: StudyProgrammesSource[
+    study_programmes_gateway: StudyProgrammesRepositoryByCodes[
         Page[ResTukeStudyProgrammeData]
     ] = TrackableResTukeStudyProgrammeGateway(
         web_page_loader, parser_factory, tqdm.gather

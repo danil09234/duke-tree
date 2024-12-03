@@ -66,8 +66,8 @@ class Parser[RawData, ParsedData](Protocol):
         return [self.parse_one(page) for page in data]
 
 
-class StudyProgrammesSource[O](Protocol):
-    async def get_by_codes(self, programmes_codes: list[str]) -> list[O]:
+class StudyProgrammesRepositoryByCodes[StudyProgramme](Protocol):
+    async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
         ...
 
 
