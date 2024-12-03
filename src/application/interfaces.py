@@ -68,9 +68,19 @@ class Parser[RawData, ParsedData](Protocol):
 
 class StudyProgrammesRepositoryByCodes[StudyProgramme](Protocol):
     async def get_by_codes(self, programmes_codes: list[str]) -> list[StudyProgramme]:
-        ...
+        """
+        Fetches study programmes by their codes.
+
+        :param programmes_codes: List of study programmes codes.
+        :return: List of study programmes.
+        """
 
 
 class LanguageParserFactory[Parser](Protocol):
     def create(self, language: Language) -> Parser:
-        ...
+        """
+        Creates a parser for a specific language.
+
+        :param language: Language.
+        :return: Parser.
+        """
