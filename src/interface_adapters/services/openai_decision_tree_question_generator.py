@@ -7,6 +7,7 @@ from openai.types import ChatModel
 from src.application.interfaces import LLMDecisionTreeQuestionGenerator
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
+from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
 
 
 class OpenAIDecisionTreeQuestionGenerator(
@@ -104,7 +105,7 @@ class OpenAIDecisionTreeQuestionGenerator(
     async def generate_question(
             self,
             study_programmes: list[Page[ResTukeStudyProgrammeData]]
-    ) -> dict[str, Any]:
+    ) -> DecisionTreeQuestion:
         client = AsyncOpenAI(api_key=self._api_key)
         user_message = self._create_user_message(study_programmes)
 
@@ -132,7 +133,8 @@ class OpenAIDecisionTreeQuestionGenerator(
         response_json = response.choices[0].message.content
         if response_json is None:
             raise RuntimeError("No JSON content returned from the language model API.")
-        return self._parse_model_response(response_json)
+        parsed_response = self._parse_model_response(response_json)
+        return DecisionTreeQuestion(**parsed_response)
 
     @staticmethod
     def _create_user_message(study_programmes: list[Page[ResTukeStudyProgrammeData]]) -> str:

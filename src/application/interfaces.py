@@ -1,5 +1,6 @@
-from typing import Protocol, Iterable, Any
+from typing import Protocol, Iterable
 
+from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
 from src.domain.entities.question_tree import QuestionsTree
 from src.domain.enums import Language
 
@@ -107,7 +108,7 @@ class QuestionTreeGenerator[StudyProgrammeData](Protocol):
 
 
 class LLMDecisionTreeQuestionGenerator[StudyProgramme](Protocol):
-    async def generate_question(self, study_programmes: list[StudyProgramme]) -> dict[str, Any]:
+    async def generate_question(self, study_programmes: list[StudyProgramme]) -> DecisionTreeQuestion:
         """
         Generate a JSON response containing the question
 
