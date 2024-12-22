@@ -1,7 +1,7 @@
 from src.application.interfaces import QuestionTreeGenerator, LLMDecisionTreeQuestionGenerator
 from src.domain.entities.question_tree import QuestionsTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.domain.entities.question import Question
+from src.domain.entities.binary_question import BinaryQuestion
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 
 
@@ -24,7 +24,7 @@ class ResTukeQuestionTreeGenerator(QuestionTreeGenerator[Page[ResTukeStudyProgra
     async def _generate_node(
             self,
             study_programmes: list[Page[ResTukeStudyProgrammeData]]
-    ) -> Question[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData]:
+    ) -> BinaryQuestion[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData]:
         if self._is_single_programme(study_programmes):
             return study_programmes[0]
 
@@ -45,10 +45,10 @@ class ResTukeQuestionTreeGenerator(QuestionTreeGenerator[Page[ResTukeStudyProgra
     @staticmethod
     def _create_question(
             question_text: str,
-            yes_node: Question[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData],
-            no_node: Question[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData]
-    ) -> Question[Page[ResTukeStudyProgrammeData]]:
-        return Question(
+            yes_node: BinaryQuestion[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData],
+            no_node: BinaryQuestion[Page[ResTukeStudyProgrammeData]] | Page[ResTukeStudyProgrammeData]
+    ) -> BinaryQuestion[Page[ResTukeStudyProgrammeData]]:
+        return BinaryQuestion(
             question=question_text,
             yes_answer_node=yes_node,
             no_answer_node=no_node,

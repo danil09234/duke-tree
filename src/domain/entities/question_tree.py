@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
-from src.domain.entities.question import Question
+from src.domain.entities.binary_question import BinaryQuestion
 
 
 class QuestionsTree[StudyProgrammeData](NamedTuple):
-    root: Question[StudyProgrammeData] | StudyProgrammeData
+    root: BinaryQuestion[StudyProgrammeData] | StudyProgrammeData
