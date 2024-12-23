@@ -139,7 +139,7 @@ class OpenAIDecisionTreeQuestionGenerator(
             })
         return (
             "Here is the list of study programmes:\n"
-            f"{json.dumps(programme_data, indent=2)}\n\n"
+            f"{programme_data}\n\n"
             "Please generate a question as per the instructions."
         )
 
