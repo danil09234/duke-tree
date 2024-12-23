@@ -40,22 +40,12 @@ class OpenAIDecisionTreeQuestionGenerator(
         "Attributes:\n"
         "- `code`: str\n"
         "- `study_field`: str\n"
-        "- `level_of_degree`: int\n"
-        "- `study_form`: str\n"
-        "- `degree`: str\n"
-        "- `length_of_study_in_years`: int\n"
-        "- `professionally_oriented`: bool\n"
-        "- `joint_study_program`: bool\n"
-        "- `languages_of_delivery`: str\n"
         "- `description`: str\n"
         "- `learning_objectives`: str\n"
-        "- `main_learning_outcomes`: str\n"
-        "- `faculty`: str\n\n"
         "Before proposing the question, simulate its effect on the given programmes so neither 'yes' nor 'no' "
         "group is empty. "
-        "Ask about the applicants' interests if possible, but keep the question accessible and clear. All "
-        "programmes must "
-        "appear in the returned list. This is very important."
+        "Ask about the applicants' interests, not about the programmes themselves. Keep the question accessible "
+        "and clear. All programmes must appear in the returned list - this is very important."
     )
 
     _response_schema = {
@@ -144,13 +134,6 @@ class OpenAIDecisionTreeQuestionGenerator(
             programme_data.append({
                 "code": programme.metadata.code,
                 "study_field": programme.data.study_field,
-                "level_of_degree": programme.data.level_of_degree,
-                "study_form": programme.data.study_form,
-                "degree": programme.data.degree,
-                "length_of_study_in_years": programme.data.length_of_study_in_years,
-                "professionally_oriented": programme.data.professionally_oriented,
-                "joint_study_program": programme.data.joint_study_program,
-                "languages_of_delivery": programme.data.languages_of_delivery,
                 "description": programme.data.description,
                 "learning_objectives": programme.data.learning_objectives,
             })
