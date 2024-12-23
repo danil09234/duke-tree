@@ -15,76 +15,71 @@ class MermaidGraphGenerator:
     def __init__(self) -> None:
         self._lines: list[str] = []
         self._id_counter = 0
-        self._visited: dict[int, str] = {}
+        self._visited_nodes: dict[int, str] = {}
 
-    def generate_code(self, questions_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> str:
-        self._reset_graph()
-        root_id = self._get_node_id()
-        self._visit_node(questions_tree.root, root_id)
+    def generate_graph(self, question_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> str:
+        self._initialize_graph()
+        root_id = self._create_node_id()
+        self._process_node(question_tree.root, root_id)
         return "\n\t".join(self._lines)
 
-    def _reset_graph(self) -> None:
+    def _initialize_graph(self) -> None:
         self._lines.clear()
         self._lines.append("graph TD")
         self._id_counter = 0
-        self._visited.clear()
+        self._visited_nodes.clear()
 
-    def _visit_node(self, node: Node, node_id: str) -> None:
-        self._add_node_line(node, node_id)
-        self._mark_node_visited(node, node_id)
-        self._handle_node_transitions(node, node_id)
-
-    def _add_node_line(self, node: Node, node_id: str) -> None:
-        node_label = self._get_node_label(node)
-        self._lines.append(f'{node_id}["{node_label}"]')
-
-    def _mark_node_visited(self, node: Node, node_id: str) -> None:
-        self._visited[id(node)] = node_id
-
-    def _handle_node_transitions(self, node: Node, node_id: str) -> None:
-        if isinstance(node, OptionsQuestion):
-            self._handle_options_question_transitions(node, node_id)
-        elif isinstance(node, BinaryQuestion):
-            self._handle_binary_question_transitions(node, node_id)
-
-    @staticmethod
-    def _get_node_label(node: Node) -> str:
-        if isinstance(node, OptionsQuestion):
-            return node.text
-        elif isinstance(node, BinaryQuestion):
-            return node.text
-        elif isinstance(node, Page) and isinstance(node.data, ResTukeStudyProgrammeData):
-            return node.data.name
-        else:
-            return "Unknown"
-
-    def _handle_options_question_transitions(
-            self, node: OptionsQuestion[Page[ResTukeStudyProgrammeData]], parent_id: str
-    ) -> None:
-        for option in node.answer_options:
-            child_id = self._get_or_create_node_id(option.answer_node)
-            self._add_transition_line(parent_id, option.text, child_id)
-            self._visit_node(option.answer_node, child_id)
-
-    def _handle_binary_question_transitions(
-            self, node: BinaryQuestion[Page[ResTukeStudyProgrammeData]], parent_id: str
-    ) -> None:
-        yes_id = self._get_or_create_node_id(node.yes_answer_node)
-        no_id = self._get_or_create_node_id(node.no_answer_node)
-        self._add_transition_line(parent_id, "Yes", yes_id)
-        self._add_transition_line(parent_id, "No", no_id)
-        self._visit_node(node.yes_answer_node, yes_id)
-        self._visit_node(node.no_answer_node, no_id)
-
-    def _add_transition_line(self, parent_id: str, label: str, child_id: str) -> None:
-        self._lines.append(f'{parent_id} -->|{label}| {child_id}')
-
-    def _get_or_create_node_id(self, node: object) -> str:
-        if id(node) in self._visited:
-            return self._visited[id(node)]
-        return self._get_node_id()
-
-    def _get_node_id(self) -> str:
+    def _create_node_id(self) -> str:
         node_id = f"n{self._id_counter}"
         self._id_counter += 1
         return node_id
+
+    def _process_node(self, node: Node, node_id: str) -> None:
+        self._add_node(node, node_id)
+        self._mark_as_visited(node, node_id)
+        self._handle_transitions(node, node_id)
+
+    def _add_node(self, node: Node, node_id: str) -> None:
+        label = self._get_label(node)
+        self._lines.append(f'{node_id}["{label}"]')
+
+    def _mark_as_visited(self, node: Node, node_id: str) -> None:
+        self._visited_nodes[id(node)] = node_id
+
+    def _handle_transitions(self, node: Node, parent_id: str) -> None:
+        if isinstance(node, OptionsQuestion):
+            self._handle_options_transitions(node, parent_id)
+        elif isinstance(node, BinaryQuestion):
+            self._handle_binary_transitions(node, parent_id)
+
+    @staticmethod
+    def _get_label(node: Node) -> str:
+        if isinstance(node, (OptionsQuestion, BinaryQuestion)):
+            return node.text
+        elif isinstance(node, Page) and isinstance(node.data, ResTukeStudyProgrammeData):
+            return node.data.name
+        return "Unknown"
+
+    def _handle_options_transitions(
+            self, node: OptionsQuestion[Page[ResTukeStudyProgrammeData]], parent_id: str
+    ) -> None:
+        for option in node.answer_options:
+            child_id = self._get_existing_node_id(option.answer_node)
+            self._add_transition(parent_id, option.text, child_id)
+            self._process_node(option.answer_node, child_id)
+
+    def _handle_binary_transitions(
+            self, node: BinaryQuestion[Page[ResTukeStudyProgrammeData]], parent_id: str
+    ) -> None:
+        yes_id = self._get_existing_node_id(node.yes_answer_node)
+        no_id = self._get_existing_node_id(node.no_answer_node)
+        self._add_transition(parent_id, "Yes", yes_id)
+        self._add_transition(parent_id, "No", no_id)
+        self._process_node(node.yes_answer_node, yes_id)
+        self._process_node(node.no_answer_node, no_id)
+
+    def _add_transition(self, parent_id: str, label: str, child_id: str) -> None:
+        self._lines.append(f'{parent_id} -->|{label}| {child_id}')
+
+    def _get_existing_node_id(self, node: object) -> str:
+        return self._visited_nodes.get(id(node), self._create_node_id())
