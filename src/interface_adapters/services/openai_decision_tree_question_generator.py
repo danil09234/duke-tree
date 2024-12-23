@@ -1,6 +1,7 @@
 import json
 from typing import Union, Any
 
+from loguru import logger
 from openai import AsyncOpenAI
 from openai.types import ChatModel
 
@@ -124,7 +125,12 @@ class OpenAIDecisionTreeQuestionGenerator(
         if response_json is None:
             raise RuntimeError("No JSON content returned from the language model API.")
         parsed_response = self._parse_model_response(response_json)
-        return DecisionTreeQuestion(**parsed_response)
+        logger.debug(f"Generated question: {parsed_response}")
+        return DecisionTreeQuestion(
+            text=parsed_response["question"],
+            yes_nodes=parsed_response["yes"],
+            no_nodes=parsed_response["no"]
+        )
 
     @staticmethod
     def _create_user_message(study_programmes: list[Page[ResTukeStudyProgrammeData]]) -> str:
