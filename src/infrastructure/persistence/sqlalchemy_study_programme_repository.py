@@ -1,13 +1,17 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+from sqlalchemy import select
 
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 from src.infrastructure.interfaces import EntityMapper
-from src.application.interfaces import Savable
+from src.application.interfaces import Savable, GetAllRepository
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
 
 
-class SQLAlchemyStudyProgrammeRepository(Savable[Page[ResTukeStudyProgrammeData]]):
+class SQLAlchemyStudyProgrammeRepository(
+    Savable[Page[ResTukeStudyProgrammeData]],
+    GetAllRepository[Page[ResTukeStudyProgrammeData]]
+):
     def __init__(
             self,
             session_maker: async_sessionmaker[AsyncSession],
@@ -30,3 +34,13 @@ class SQLAlchemyStudyProgrammeRepository(Savable[Page[ResTukeStudyProgrammeData]
         async with self._session_maker() as session:
             session.add_all(models)
             await session.commit()
+
+    async def get_all(self) -> list[Page[ResTukeStudyProgrammeData]]:
+        async with self._session_maker() as session:
+            result = await session.execute(select(StudyProgrammeORM))
+            orm_study_programmes = result.scalars().all()
+            study_programmes = [
+                await self._study_programme_mapper.to_entity(orm_sp)
+                for orm_sp in orm_study_programmes
+            ]
+            return study_programmes
