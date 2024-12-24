@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing import Protocol, Iterable
 
 from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
@@ -104,6 +105,17 @@ class QuestionTreeGenerator[StudyProgrammeData](Protocol):
 
         :param study_programmes: List of study programmes.
         :return: Questions tree.
+        """
+
+
+class QuestionTreeGraphGenerator[StudyProgrammeData](ABC):
+    @abstractmethod
+    def generate(self, question_tree: QuestionsTree[StudyProgrammeData]) -> str:
+        """
+        Generates questions tree graph based on questions tree.
+
+        :param question_tree: Questions tree.
+        :return: Questions tree graph.
         """
 
 

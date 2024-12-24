@@ -1,3 +1,6 @@
+from typing import override
+
+from src.application.interfaces import QuestionTreeGraphGenerator
 from src.domain.entities.binary_question import BinaryQuestion
 from src.domain.entities.options_question import OptionsQuestion
 from src.domain.entities.question_tree import QuestionsTree
@@ -11,13 +14,14 @@ type Node = (
 )
 
 
-class MermaidGraphGenerator:
+class MermaidGraphGenerator(QuestionTreeGraphGenerator[Page[ResTukeStudyProgrammeData]]):
     def __init__(self) -> None:
         self._lines: list[str] = []
         self._id_counter = 0
         self._visited_nodes: dict[int, str] = {}
 
-    def generate_graph(self, question_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> str:
+    @override
+    def generate(self, question_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> str:
         self._initialize_graph()
         root_id = self._create_node_id()
         self._process_node(question_tree.root, root_id)

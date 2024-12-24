@@ -6,7 +6,7 @@ from src.domain.entities.question_tree import QuestionsTree
 
 def test_generate_graph_simple(simple_binary_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
-    graph = generator.generate_graph(simple_binary_tree)
+    graph = generator.generate(simple_binary_tree)
     expected_graph = (
         "graph TD\n\t"
         'n0["Are you interested in computer technologies?"]\n\t'
@@ -20,7 +20,7 @@ def test_generate_graph_simple(simple_binary_tree: QuestionsTree[Page[ResTukeStu
 
 def test_generate_graph_complex(complex_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
-    graph = generator.generate_graph(complex_tree)
+    graph = generator.generate(complex_tree)
     expected_graph = (
         "graph TD\n\t"
         'n0["Are you interested in computer technologies?"]\n\t'
@@ -38,7 +38,7 @@ def test_generate_graph_complex(complex_tree: QuestionsTree[Page[ResTukeStudyPro
 
 def test_handle_options_transitions(options_transitions_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
-    graph = generator.generate_graph(options_transitions_tree)
+    graph = generator.generate(options_transitions_tree)
     expected_graph = (
         "graph TD\n\t"
         'n0["Do you like programming?"]\n\t'
@@ -52,7 +52,7 @@ def test_handle_options_transitions(options_transitions_tree: QuestionsTree[Page
 
 def test_full_generation(full_generation_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
-    graph = generator.generate_graph(full_generation_tree)
+    graph = generator.generate(full_generation_tree)
     expected_graph = (
         "graph TD\n\t"
         'n0["Do you prefer theoretical or practical learning?"]\n\t'
