@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Protocol, Iterable
 
 from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 from src.domain.enums import Language
 
 
@@ -99,7 +99,7 @@ class LanguageParserFactory[Parser](Protocol):
 
 
 class QuestionTreeGenerator[StudyProgrammeData](Protocol):
-    async def generate(self, study_programmes: list[StudyProgrammeData]) -> QuestionsTree[StudyProgrammeData]:
+    async def generate(self, study_programmes: list[StudyProgrammeData]) -> QuestionTree[StudyProgrammeData]:
         """
         Generates questions tree based on study programmes.
 
@@ -110,7 +110,7 @@ class QuestionTreeGenerator[StudyProgrammeData](Protocol):
 
 class QuestionTreeGraphGenerator[StudyProgrammeData](ABC):
     @abstractmethod
-    def generate(self, question_tree: QuestionsTree[StudyProgrammeData]) -> str:
+    def generate(self, question_tree: QuestionTree[StudyProgrammeData]) -> str:
         """
         Generates questions tree graph based on questions tree.
 

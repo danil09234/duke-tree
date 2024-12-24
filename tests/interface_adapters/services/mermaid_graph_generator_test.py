@@ -1,10 +1,10 @@
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 from src.interface_adapters.services.mermaid_graph_generator import MermaidGraphGenerator
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 
 
-def test_generate_graph_simple(simple_binary_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
+def test_generate_graph_simple(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
     graph = generator.generate(simple_binary_tree)
     expected_graph = (
@@ -18,7 +18,7 @@ def test_generate_graph_simple(simple_binary_tree: QuestionsTree[Page[ResTukeStu
     assert graph == expected_graph
 
 
-def test_generate_graph_complex(complex_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
+def test_generate_graph_complex(complex_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
     graph = generator.generate(complex_tree)
     expected_graph = (
@@ -36,7 +36,7 @@ def test_generate_graph_complex(complex_tree: QuestionsTree[Page[ResTukeStudyPro
     assert graph == expected_graph
 
 
-def test_handle_options_transitions(options_transitions_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
+def test_handle_options_transitions(options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
     graph = generator.generate(options_transitions_tree)
     expected_graph = (
@@ -50,7 +50,7 @@ def test_handle_options_transitions(options_transitions_tree: QuestionsTree[Page
     assert graph == expected_graph
 
 
-def test_full_generation(full_generation_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]]) -> None:
+def test_full_generation(full_generation_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     generator = MermaidGraphGenerator()
     graph = generator.generate(full_generation_tree)
     expected_graph = (

@@ -1,5 +1,5 @@
 from src.application.interfaces import QuestionTreeGenerator
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 from src.application.interfaces import Savable, GetAllRepository
 
 
@@ -8,7 +8,7 @@ class GenerateAndSaveQuestionsTreeUseCase[StudyProgrammeData]:
             self,
             study_programmes_repository: GetAllRepository[StudyProgrammeData],
             questions_tree_generator: QuestionTreeGenerator[StudyProgrammeData],
-            question_tree_storage: Savable[QuestionsTree[StudyProgrammeData]]
+            question_tree_storage: Savable[QuestionTree[StudyProgrammeData]]
     ) -> None:
         self._study_programmes_repository = study_programmes_repository
         self._questions_tree_generator = questions_tree_generator

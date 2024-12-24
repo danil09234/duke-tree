@@ -1,12 +1,12 @@
 from src.application.interfaces import QuestionTreeGraphGenerator
 from src.application.interfaces import Savable, GetAllRepository
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 
 
 class LoadQuestionTreesAndGenerateGraphsUseCase[StudyProgrammeData]:
     def __init__(
             self,
-            questions_tree_storage: GetAllRepository[QuestionsTree[StudyProgrammeData]],
+            questions_tree_storage: GetAllRepository[QuestionTree[StudyProgrammeData]],
             graph_generator: QuestionTreeGraphGenerator[StudyProgrammeData],
             graph_storage: Savable[str]
     ) -> None:

@@ -2,7 +2,7 @@ from loguru import logger
 
 from src.application.interfaces import QuestionTreeGenerator, LLMDecisionTreeQuestionGenerator
 from src.domain.entities.options_question import OptionsQuestion, AnswerOption
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.domain.entities.binary_question import BinaryQuestion
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
@@ -21,9 +21,9 @@ class ResTukeQuestionTreeGenerator(QuestionTreeGenerator[Page[ResTukeStudyProgra
     async def generate(
             self,
             study_programmes: list[Page[ResTukeStudyProgrammeData]]
-    ) -> QuestionsTree[Page[ResTukeStudyProgrammeData]]:
+    ) -> QuestionTree[Page[ResTukeStudyProgrammeData]]:
         root_question = await self._generate_preferred_language_question(study_programmes)
-        return QuestionsTree(root=root_question)
+        return QuestionTree(root=root_question)
 
     async def _generate_preferred_language_question(
             self, 

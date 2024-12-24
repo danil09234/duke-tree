@@ -18,7 +18,7 @@ from src.application.use_cases.fetch_and_save_study_programmes import FetchAndSa
 from src.application.use_cases.generate_and_save_questions_tree import GenerateAndSaveQuestionsTreeUseCase
 from src.application.use_cases.load_question_trees_and_generate_graphs_use_case import \
     LoadQuestionTreesAndGenerateGraphsUseCase
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.infrastructure.config.sqlalchemy_database_config import SQLAlchemyDatabaseConfig
 from src.infrastructure.loaders.aiohttp_web_loader import AiohttpWebLoader
@@ -94,7 +94,7 @@ async def _build_questions_tree_async(openai_api_key: str, destination_file_path
     study_programmes_repository = SQLAlchemyStudyProgrammeRepository(session_maker, SQLAlchemyStudyProgrammeMapper())
     llm_decision_tree_question_generator_service = OpenAIDecisionTreeQuestionGenerator(openai_api_key)
     questions_tree_generator = ResTukeQuestionTreeGenerator(llm_decision_tree_question_generator_service)
-    questions_tree_storage: Savable[QuestionsTree[Page[ResTukeStudyProgrammeData]]] = (
+    questions_tree_storage: Savable[QuestionTree[Page[ResTukeStudyProgrammeData]]] = (
         SerializerStorage(str(destination_file_path.absolute()))
     )
     use_case = GenerateAndSaveQuestionsTreeUseCase(
@@ -109,7 +109,7 @@ async def _build_questions_tree_async(openai_api_key: str, destination_file_path
 @click.argument("questions_tree_file_path", type=Path)
 @click.argument("output_file_path", type=Path)
 def generate_graph_from_questions_tree(questions_tree_file_path: Path, output_file_path: Path) -> None:
-    questions_tree_storage: GetAllRepository[QuestionsTree[Page[ResTukeStudyProgrammeData]]] = (
+    questions_tree_storage: GetAllRepository[QuestionTree[Page[ResTukeStudyProgrammeData]]] = (
         SerializerStorage(str(questions_tree_file_path.absolute()))
     )
     graph_generator: QuestionTreeGraphGenerator[Page[ResTukeStudyProgrammeData]] = MermaidGraphGenerator()

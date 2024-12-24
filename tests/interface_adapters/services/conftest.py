@@ -2,14 +2,14 @@ import pytest
 
 from src.domain.entities.binary_question import BinaryQuestion
 from src.domain.entities.options_question import OptionsQuestion, AnswerOption
-from src.domain.entities.question_tree import QuestionsTree
+from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 
 
 @pytest.fixture
 def simple_binary_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeData]]) \
-        -> QuestionsTree[Page[ResTukeStudyProgrammeData]]:
+        -> QuestionTree[Page[ResTukeStudyProgrammeData]]:
     programme1 = test_study_programmes[0]
     programme2 = test_study_programmes[1]
 
@@ -19,13 +19,13 @@ def simple_binary_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeDat
         no_answer_node=programme2
     )
 
-    question_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]] = QuestionsTree(root=binary_question)
+    question_tree: QuestionTree[Page[ResTukeStudyProgrammeData]] = QuestionTree(root=binary_question)
     return question_tree
 
 
 @pytest.fixture
 def complex_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeData]]) \
-        -> QuestionsTree[Page[ResTukeStudyProgrammeData]]:
+        -> QuestionTree[Page[ResTukeStudyProgrammeData]]:
     programme1 = test_study_programmes[0]
     programme2 = test_study_programmes[1]
     programme3 = test_study_programmes[2]
@@ -42,13 +42,13 @@ def complex_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeData]]) \
         no_answer_node=binary_q2
     )
 
-    question_tree: QuestionsTree[Page[ResTukeStudyProgrammeData]] = QuestionsTree(root=binary_q1)
+    question_tree: QuestionTree[Page[ResTukeStudyProgrammeData]] = QuestionTree(root=binary_q1)
     return question_tree
 
 
 @pytest.fixture
 def options_transitions_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeData]]) \
-        -> QuestionsTree[Page[ResTukeStudyProgrammeData]]:
+        -> QuestionTree[Page[ResTukeStudyProgrammeData]]:
     programme_yes = test_study_programmes[0]
     programme_no = test_study_programmes[1]
 
@@ -60,12 +60,12 @@ def options_transitions_tree(test_study_programmes: list[Page[ResTukeStudyProgra
         answer_options=[option1, option2]
     )
 
-    return QuestionsTree(root=options_question)
+    return QuestionTree(root=options_question)
 
 
 @pytest.fixture
 def full_generation_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeData]]) \
-        -> QuestionsTree[Page[ResTukeStudyProgrammeData]]:
+        -> QuestionTree[Page[ResTukeStudyProgrammeData]]:
     programme1 = test_study_programmes[0]
     programme2 = test_study_programmes[1]
     programme3 = test_study_programmes[2]
@@ -93,4 +93,4 @@ def full_generation_tree(test_study_programmes: list[Page[ResTukeStudyProgrammeD
         answer_options=[option1, option2]
     )
 
-    return QuestionsTree(root=options_question)
+    return QuestionTree(root=options_question)
