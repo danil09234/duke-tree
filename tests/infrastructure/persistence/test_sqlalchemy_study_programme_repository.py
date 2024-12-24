@@ -4,9 +4,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
+from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 
 
 @pytest_asyncio.fixture

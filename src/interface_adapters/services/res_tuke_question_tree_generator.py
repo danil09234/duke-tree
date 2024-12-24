@@ -1,12 +1,13 @@
+from typing import Callable, Any, Awaitable, Union
+
 from loguru import logger
 
 from src.application.interfaces import QuestionTreeGenerator, LLMDecisionTreeQuestionGenerator
+from src.domain.entities.binary_question import BinaryQuestion
 from src.domain.entities.options_question import OptionsQuestion, AnswerOption
 from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.domain.entities.binary_question import BinaryQuestion
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from typing import Callable, Any, Awaitable, Union
 
 
 class ResTukeQuestionTreeGenerator(QuestionTreeGenerator[Page[ResTukeStudyProgrammeData]]):

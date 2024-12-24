@@ -1,8 +1,8 @@
 from typing import Awaitable, Callable, Any
 
+from src.application.interfaces import WebPageLoader, Parser, LanguageParserFactory
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.application.interfaces import WebPageLoader, Parser, LanguageParserFactory
 from src.interface_adapters.gateways.tuke_study_programmes_gateway import ResTukeStudyProgrammesGateway
 
 

@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import AsyncMock, create_autospec
+
+import pytest
 
 from src.application.interfaces import Fetchable, StudyProgrammesRepositoryByCodes, Savable
 from src.application.use_cases.fetch_and_save_study_programmes import FetchAndSaveStudyProgrammesUseCase

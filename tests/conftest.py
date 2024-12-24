@@ -8,9 +8,9 @@ import pytest_asyncio
 from _pytest.tmpdir import TempPathFactory
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
+from testcontainers.postgres import PostgresContainer  # type: ignore
 
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.gateways.study_programmes_gateway_base import Page, PageMetadata
 from src.domain.enums import Language, StudyForm, Degree
 from src.infrastructure.interfaces import DatabaseConfig
 from src.infrastructure.orm.database_initializer import DatabaseInitializer
@@ -19,8 +19,8 @@ from src.infrastructure.orm.factories.session_maker_factory import SessionMakerF
 from src.infrastructure.orm.mappers.sqlalchemy_study_programme_mapper import SQLAlchemyStudyProgrammeMapper
 from src.infrastructure.orm.models import Base
 from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page, PageMetadata
 from src.interface_adapters.interfaces import Logger
-from testcontainers.postgres import PostgresContainer  # type: ignore
 
 
 class TestDatabaseConfig(DatabaseConfig[Type[DeclarativeBase]]):

@@ -1,9 +1,9 @@
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.gateways.study_programmes_gateway_base import Page, PageMetadata
 from src.domain.enums import StudyForm, Degree, Language
-from src.infrastructure.orm.enums import StudyForm as StudyFormORM, Degree as DegreeORM, Language as LanguageORM
 from src.infrastructure.interfaces import EntityMapper
+from src.infrastructure.orm.enums import StudyForm as StudyFormORM, Degree as DegreeORM, Language as LanguageORM
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page, PageMetadata
 
 
 class SQLAlchemyStudyProgrammeMapper(

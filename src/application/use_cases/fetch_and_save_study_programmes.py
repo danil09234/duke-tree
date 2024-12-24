@@ -1,5 +1,5 @@
-from src.application.interfaces import Savable, StudyProgrammesRepositoryByCodes
 from src.application.interfaces import Fetchable
+from src.application.interfaces import Savable, StudyProgrammesRepositoryByCodes
 
 
 class FetchAndSaveStudyProgrammesUseCase[StudyProgrammeData]:

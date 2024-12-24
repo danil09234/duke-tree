@@ -1,10 +1,11 @@
-import pytest
 from pathlib import Path
 
+import pytest
+
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.parsers.res_tuke_study_programme_html_parser import ResTukeStudyProgrammeHtmlParser
 from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.domain.enums import Language, Degree, StudyForm
+from src.interface_adapters.parsers.res_tuke_study_programme_html_parser import ResTukeStudyProgrammeHtmlParser
 
 
 class TestResTukeStudyProgrammeHtmlParserOnSkPage:

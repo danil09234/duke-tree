@@ -1,9 +1,9 @@
+from sqlalchemy import Enum as SQLAlchemyEnum
 from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.infrastructure.orm.models import Base
 from src.infrastructure.orm.enums import StudyForm, Degree, Language
-from sqlalchemy import Enum as SQLAlchemyEnum
+from src.infrastructure.orm.models import Base
 
 
 class StudyProgramme(Base):

@@ -1,11 +1,12 @@
 from collections import defaultdict
 
-from src.domain.entities.tuke_study_programme import TukeStudyProgramme
+from bs4 import BeautifulSoup, Tag
+
 from src.application.interfaces import Parser
+from src.domain.entities.tuke_study_programme import TukeStudyProgramme
 from src.domain.enums.degree import Degree
 from src.domain.enums.languages import Language
 from src.domain.enums.study_form import StudyForm
-from bs4 import BeautifulSoup, Tag
 
 
 class PortalvsStudyProgrammeHtmlParser(Parser[str, TukeStudyProgramme]):

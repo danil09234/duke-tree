@@ -1,11 +1,11 @@
-from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
-from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.infrastructure.interfaces import EntityMapper
 from src.application.interfaces import Savable, GetAllRepository
+from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
+from src.infrastructure.interfaces import EntityMapper
 from src.infrastructure.orm.models import StudyProgramme as StudyProgrammeORM
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 
 
 class SQLAlchemyStudyProgrammeRepository(

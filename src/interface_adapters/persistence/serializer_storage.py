@@ -1,4 +1,5 @@
 import pickle
+
 from src.application.interfaces import Savable, GetAllRepository
 
 

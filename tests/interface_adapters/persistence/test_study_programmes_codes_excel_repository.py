@@ -1,5 +1,6 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 from src.interface_adapters.exceptions import InvalidExcelFileStructure
 from src.interface_adapters.persistence.study_programmes_codes_excel_repository import \

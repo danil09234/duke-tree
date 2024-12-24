@@ -1,7 +1,7 @@
 import aiohttp
 
-from src.interface_adapters.exceptions import PageLoadingError
 from src.application.interfaces import WebPageLoader
+from src.interface_adapters.exceptions import PageLoadingError
 
 type url = str
 

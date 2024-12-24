@@ -1,5 +1,6 @@
-from loguru import logger
 from typing import Any
+
+from loguru import logger
 
 from src.interface_adapters.interfaces import Logger
 

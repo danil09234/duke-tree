@@ -1,6 +1,6 @@
 from src.application.interfaces import QuestionTreeGenerator
-from src.domain.entities.question_tree import QuestionTree
 from src.application.interfaces import Savable, GetAllRepository
+from src.domain.entities.question_tree import QuestionTree
 
 
 class GenerateAndSaveQuestionsTreeUseCase[StudyProgrammeData]:

@@ -1,4 +1,5 @@
 from typing import NamedTuple
+
 from src.domain.enums import Degree, Language, StudyForm
 
 

@@ -1,9 +1,10 @@
 from typing import Dict, Any, cast
+
 from lxml import etree
 from lxml.etree import _Element
 
-from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.application.interfaces import Parser
+from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.domain.enums import Language, Degree, StudyForm
 from src.interface_adapters.exceptions import ParserError
 

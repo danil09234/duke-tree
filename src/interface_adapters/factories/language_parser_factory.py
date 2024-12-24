@@ -1,7 +1,7 @@
-from src.interface_adapters.parsers.res_tuke_study_programme_html_parser import ResTukeStudyProgrammeHtmlParser
-from src.domain.enums import Language
-from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.application.interfaces import LanguageParserFactory, Parser
+from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
+from src.domain.enums import Language
+from src.interface_adapters.parsers.res_tuke_study_programme_html_parser import ResTukeStudyProgrammeHtmlParser
 
 
 class ResTukeLanguageParserFactory(LanguageParserFactory[Parser[str, ResTukeStudyProgrammeData]]):

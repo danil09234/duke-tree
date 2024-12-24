@@ -1,5 +1,5 @@
-from src.interface_adapters.gateways.study_programmes_gateway_base import StudyProgrammesGatewayBase, Page
 from src.application.interfaces import StudyProgrammesRepositoryByCodes
+from src.interface_adapters.gateways.study_programmes_gateway_base import StudyProgrammesGatewayBase, Page
 
 
 class PortalvsStudyProgrammesGateway[Data](

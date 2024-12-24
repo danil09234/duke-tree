@@ -1,7 +1,7 @@
+from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 from src.interface_adapters.services.mermaid_graph_generator import MermaidGraphGenerator
-from src.domain.entities.question_tree import QuestionTree
 
 
 def test_generate_graph_simple(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:

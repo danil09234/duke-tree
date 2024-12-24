@@ -6,9 +6,9 @@ from openai import AsyncOpenAI
 from openai.types import ChatModel
 
 from src.application.interfaces import LLMDecisionTreeQuestionGenerator
+from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.domain.dtos.decision_tree_question import DecisionTreeQuestion
 
 
 class OpenAIDecisionTreeQuestionGenerator(

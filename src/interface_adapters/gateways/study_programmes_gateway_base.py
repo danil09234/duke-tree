@@ -3,9 +3,9 @@ from abc import ABC
 from asyncio import Semaphore
 from typing import Generator, Coroutine, Any, Optional, Iterable, NamedTuple
 
-from src.interface_adapters.exceptions import InvalidUrlError, PageLoadingError
-from src.domain.enums import Language
 from src.application.interfaces import WebPageLoader, Parser, LanguageParserFactory
+from src.domain.enums import Language
+from src.interface_adapters.exceptions import InvalidUrlError, PageLoadingError
 
 
 class PageMetadata(NamedTuple):

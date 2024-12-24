@@ -2,11 +2,11 @@ from unittest.mock import create_autospec, AsyncMock, Mock
 
 import pytest
 
-from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
-from src.interface_adapters.gateways.study_programmes_gateway_base import Page
-from src.interface_adapters.exceptions import PageLoadingError
-from src.domain.enums import Language
 from src.application.interfaces import WebPageLoader, Parser, LanguageParserFactory
+from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
+from src.domain.enums import Language
+from src.interface_adapters.exceptions import PageLoadingError
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 from src.interface_adapters.gateways.tuke_study_programmes_gateway import ResTukeStudyProgrammesGateway
 
 
