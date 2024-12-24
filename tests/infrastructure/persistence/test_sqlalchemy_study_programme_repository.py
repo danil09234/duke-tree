@@ -90,5 +90,3 @@ class TestSQLAlchemyStudyProgrammeRepository:
     ) -> None:
         for test_programme, saved_programme in zip(test_study_programmes, saved_multiple_programmes):
             assert saved_programme.name == test_programme.data.name
-
-    # Add additional test methods for other fields as needed
