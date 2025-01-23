@@ -19,7 +19,7 @@ class OpenAIDecisionTreeQuestionGenerator(
         "university study programmes at TUKE. Each study programme is represented by its "
         "'code' and attributes provided in JSON format. Your goal is to generate a yes/no "
         "question for the university applicant that divides the programmes into two "
-        "meaningful groups ('yes' and 'no') based on their attributes.\n\n"
+        "meaningful (and not empty!) groups ('yes' and 'no') based on their attributes.\n\n"
         "Provide the output in the following JSON schema:\n\n"
         "```\n"
         "{\n"
@@ -29,14 +29,12 @@ class OpenAIDecisionTreeQuestionGenerator(
         "}\n"
         "```\n\n"
         "**Rules:**\n\n"
-        "1. Your question must result in both 'yes' and 'no' groups containing at least one programme.\n"
+        "1. Your question must result in both 'yes' and 'no' groups containing at least one programme. Important!\n"
         "2. Ensure the division is meaningful and based on the attributes provided, avoiding trivial or overly "
         "specific splits.\n"
-        "3. Consider attributes like study field, level of degree, study form, length of study, professionally "
-        "oriented, etc.\n"
-        "4. Use only the provided attributes for generating questions, and ensure the question aligns logically "
+        "3. Use only the provided attributes for generating questions, and ensure the question aligns logically "
         "with these attributes.\n"
-        "5. All paths in the decision tree must eventually cover all available study programmes, with no "
+        "4. All paths in the decision tree must eventually cover all available study programmes, with no "
         "redundancy.\n\n"
         "Attributes:\n"
         "- `code`: str\n"
@@ -46,7 +44,7 @@ class OpenAIDecisionTreeQuestionGenerator(
         "Before proposing the question, simulate its effect on the given programmes so neither 'yes' nor 'no' "
         "group is empty. "
         "Ask about the applicants' interests, not about the programmes themselves. Keep the question accessible "
-        "and clear. All programmes must appear in the returned list - this is very important."
+        "and clear. All initial programmes must appear in the returned results - this is very important."
     )
 
     _response_schema = {
@@ -58,14 +56,14 @@ class OpenAIDecisionTreeQuestionGenerator(
             },
             "yes": {
                 "type": "array",
-                "description": "List of study programme codes that answer 'yes'.",
+                "description": "Not empty list of study programme codes that answer 'yes'.",
                 "items": {
                     "type": "string"
                 }
             },
             "no": {
                 "type": "array",
-                "description": "List of study programme codes that answer 'no'.",
+                "description": "Not empty list of study programme codes that answer 'no'.",
                 "items": {
                     "type": "string"
                 }
