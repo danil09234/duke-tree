@@ -124,10 +124,20 @@ class OpenAIDecisionTreeQuestionGenerator(
             raise RuntimeError("No JSON content returned from the language model API.")
         parsed_response = self._parse_model_response(response_json)
         logger.debug(f"Generated question: {parsed_response}")
+        yes_nodes = parsed_response["yes"]
+        no_nodes = parsed_response["no"]
+        if len(yes_nodes) == 0:
+            logger.error("Generated question resulted in an empty 'yes' group!")
+            logger.warning("Regenerating question...")
+            return await self.generate_question(study_programmes)
+        if len(no_nodes) == 0:
+            logger.error("Generated question resulted in an empty 'no' group!")
+            logger.warning("Regenerating question...")
+            return await self.generate_question(study_programmes)
         return DecisionTreeQuestion(
             text=parsed_response["question"],
-            yes_nodes=parsed_response["yes"],
-            no_nodes=parsed_response["no"]
+            yes_nodes=yes_nodes,
+            no_nodes=no_nodes
         )
 
     @staticmethod
