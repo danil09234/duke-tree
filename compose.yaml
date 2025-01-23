@@ -4,12 +4,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        db_host: ${db_host}
-        db_port: ${db_port}
-        db_user: ${db_user}
-        db_password: ${db_password}
-        db_name: ${db_name}
+    environment:
+      - db_host
+      - db_port
+      - db_user
+      - db_password
+      - db_name
     depends_on:
       database:
         condition: service_healthy
