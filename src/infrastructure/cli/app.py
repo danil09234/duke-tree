@@ -39,6 +39,8 @@ from src.interface_adapters.persistence.study_programmes_codes_excel_repository 
 from src.interface_adapters.services.mermaid_graph_generator import MermaidGraphGenerator
 from src.interface_adapters.services.openai_decision_tree_question_generator import OpenAIDecisionTreeQuestionGenerator
 from src.interface_adapters.services.res_tuke_question_tree_generator import ResTukeQuestionTreeGenerator
+from src.infrastructure.api.app import app
+import uvicorn
 
 
 async def _create_session_maker_and_init_db() -> async_sessionmaker[AsyncSession]:
@@ -116,6 +118,13 @@ def generate_graph_from_questions_tree(questions_tree_file_path: Path, output_fi
     plain_text_repository = PlainTextRepository(output_file_path)
     use_case = LoadQuestionTreesAndGenerateGraphsUseCase(questions_tree_storage, graph_generator, plain_text_repository)
     asyncio.get_event_loop().run_until_complete(use_case())
+
+
+@cli.command()
+@click.argument("host", type=str)
+@click.argument("port", type=int)
+def serve(host: str, port: int) -> None:
+    uvicorn.run(app, host=host, port=port)
 
 
 if __name__ == "__main__":

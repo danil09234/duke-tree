@@ -12,6 +12,8 @@ click==8.1.7
 distro==1.9.0
 docker==7.1.0
 et-xmlfile==1.1.0
+fastapi==0.115.7
+fonttools==4.55.1
 frozenlist==1.5.0
 greenlet==3.0.3
 h11==0.14.0
@@ -53,5 +55,6 @@ types-html5lib==1.1.11.20241018
 types-openpyxl==3.0.0
 typing_extensions==4.12.2
 urllib3==2.2.2
+uvicorn==0.34.0
 wrapt==1.16.0
 yarl==1.18.0

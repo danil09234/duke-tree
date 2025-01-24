@@ -19,4 +19,4 @@ for arg in "$@"; do
   fi
 done
 
-docker compose run "${env_vars[@]}" "${volumes[@]}" duke-cli "$@"
+docker compose run "${env_vars[@]}" "${volumes[@]}" --remove-orphans -p 80:80 duke-cli "$@"
