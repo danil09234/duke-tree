@@ -20,7 +20,6 @@ from src.infrastructure.orm.mappers.sqlalchemy_study_programme_mapper import SQL
 from src.infrastructure.orm.models import Base
 from src.infrastructure.persistence.sqlalchemy_study_programme_repository import SQLAlchemyStudyProgrammeRepository
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page, PageMetadata
-from src.interface_adapters.interfaces import Logger
 
 
 class TestDatabaseConfig(DatabaseConfig[Type[DeclarativeBase]]):
@@ -228,8 +227,7 @@ async def async_session_maker() -> AsyncIterator[async_sessionmaker[AsyncSession
         database_session_maker_factory = SessionMakerFactory(database_engine)
         session_maker = database_session_maker_factory.create()
         database_initializer = DatabaseInitializer(
-            engine=database_engine, session_maker=session_maker, base=Base, config=database_config,
-            logger=create_autospec(Logger)
+            engine=database_engine, session_maker=session_maker, base=Base, config=database_config
         )
         await database_initializer.init_database(fresh_init=True)
         yield session_maker
