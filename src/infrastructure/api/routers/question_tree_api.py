@@ -38,7 +38,7 @@ async def answer_question(
     try:
         result = session_service.answer_question(session_id, answer_request.answer)
         if result:
-            return StudyProgrammeResponse(study_programme_code=result.metadata.code)
+            return StudyProgrammeResponse(name=result.data.name, code=result.metadata.code)
         return None
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
