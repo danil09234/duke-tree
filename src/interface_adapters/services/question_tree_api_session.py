@@ -37,7 +37,6 @@ class QuestionTreeAPISession(metaclass=Singleton):
     def __init__(self, decision_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
         self.decision_tree = decision_tree
         self.sessions: dict[str, SessionData] = {}
-        print("Object created")
 
     def create_session(self) -> str:
         session_id = self._generate_session_id()
