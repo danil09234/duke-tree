@@ -106,15 +106,14 @@ class QuestionTreeAPISession:
             session_id: str,
             next_node: Union[QuestionNode, Page[ResTukeStudyProgrammeData]]
     ) -> Optional[list[Page[ResTukeStudyProgrammeData]]]:
-
-        if isinstance(next_node, Page):
-            session_data = self.sessions[session_id]
+        session_data = self.sessions[session_id]
+        while isinstance(next_node, Page):
             session_data.final_study_programmes.append(next_node)
-            if len(session_data.nodes_queue) == 0:
+            if session_data.nodes_queue:
+                next_node = session_data.nodes_queue.pop(0)
+            else:
                 final_list = session_data.final_study_programmes
                 del self.sessions[session_id]
                 return final_list
-            else:
-                session_data.current_node = session_data.nodes_queue.pop(0)
-                return None
+        session_data.current_node = next_node
         return None

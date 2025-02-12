@@ -1,121 +1,131 @@
+import pytest
 from uuid import UUID
 
-import pytest
-
 from src.domain.entities.binary_question import BinaryQuestion
+from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.domain.entities.question_tree import QuestionTree
 from src.interface_adapters.services.question_tree_api_session import QuestionTreeAPISession
+from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 
 
-@pytest.fixture
-def api_session(request: pytest.FixtureRequest) -> QuestionTreeAPISession:
-    tree = request.getfixturevalue(request.param)
-    return QuestionTreeAPISession(tree)
-
-
-@pytest.mark.parametrize('api_session', ['simple_binary_tree'], indirect=True)
-def test_create_session(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-
+def test_create_session_binary(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
+    session_id = session.create_session()
     UUID(session_id)
-    assert session_id in api_session.sessions
-    assert isinstance(api_session.sessions[session_id].current_node, BinaryQuestion)
+    assert session_id in session.sessions
+    assert isinstance(session.sessions[session_id].current_node, BinaryQuestion)
 
 
-@pytest.mark.parametrize('api_session', ['simple_binary_tree'], indirect=True)
-def test_get_current_question_binary(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
-    question = api_session.get_current_question(session_id)
-    assert question.question == "Are you interested in computer technologies?"
-    assert question.answers == ["Yes", "No"]
+def test_get_current_question_binary(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
+    session_id = session.create_session()
+    resp = session.get_current_question(session_id)
+
+    assert resp.question == "Are you interested in computer technologies?"
+    assert resp.answers == ["Yes", "No", "Combined"]
 
 
-@pytest.mark.parametrize('api_session', ['options_transitions_tree'], indirect=True)
-def test_get_current_question_options(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
-    question = api_session.get_current_question(session_id)
-    assert question.question == "Do you like programming?"
-    assert len(question.answers) == 2
-    assert "Yes" in question.answers
-    assert "No" in question.answers
+def test_get_current_question_options(options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(options_transitions_tree)
+    session_id = session.create_session()
+    resp = session.get_current_question(session_id)
+    expected = ["Yes", "No", "Combined"]
+    assert resp.question == "Do you like programming?"
+    assert sorted(resp.answers) == sorted(expected)
 
 
-@pytest.mark.parametrize('api_session', ['simple_binary_tree'], indirect=True)
-def test_answer_binary_question(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
-    result = api_session.answer_question(session_id, "Yes")
+def test_answer_binary_question(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "Yes")
+
     assert result is not None
-    assert result.data.name == "Programme 1 EN"
-    assert session_id not in api_session.sessions
+    assert result[0].data.name == "Programme 1 EN"
+    assert session_id not in session.sessions
 
 
-@pytest.mark.parametrize('api_session', ['complex_tree'], indirect=True)
-def test_answer_binary_question_intermediate(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-
-    result = api_session.answer_question(session_id, "No")
-
+def test_answer_binary_question_intermediate(complex_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(complex_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "No")
     assert result is None
-    assert session_id in api_session.sessions
-
-    question = api_session.get_current_question(session_id)
-    assert question.question == "Are you interested in quality management?"
+    resp = session.get_current_question(session_id)
+    assert resp.question == "Are you interested in quality management?"
 
 
-@pytest.mark.parametrize('api_session', ['options_transitions_tree'], indirect=True)
-def test_answer_options_question(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
-    result = api_session.answer_question(session_id, "Yes")
+def test_answer_options_question(options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(options_transitions_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "Yes")
+
     assert result is not None
-    assert result.data.name == "Programme 1 EN"
-    assert session_id not in api_session.sessions
+    assert result[0].data.name == "Programme 1 EN"
+    assert session_id not in session.sessions
 
 
-@pytest.mark.parametrize('api_session', ['full_generation_tree'], indirect=True)
-def test_answer_complex_path(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-
-    result = api_session.answer_question(session_id, "Practical")
+def test_answer_complex_path(full_generation_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(full_generation_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "Practical")
     assert result is None
-    assert isinstance(api_session.sessions[session_id].current_node, BinaryQuestion)
-
-    result = api_session.answer_question(session_id, "No")
+    resp = session.get_current_question(session_id)
+    assert resp.question == "Are you interested in computer technologies?"
+    result = session.answer_question(session_id, "No")
     assert result is None
-    assert isinstance(api_session.sessions[session_id].current_node, BinaryQuestion)
+    resp = session.get_current_question(session_id)
+    assert resp.question == "Are you interested in quality management?"
+    result = session.answer_question(session_id, "Yes")
 
-    result = api_session.answer_question(session_id, "Yes")
     assert result is not None
-    assert result.data.name == "Programme 3 EN"
-    assert session_id not in api_session.sessions
+    assert result[0].data.name == "Programme 3 EN"
+    assert session_id not in session.sessions
 
 
-def test_get_current_question_invalid_session() -> None:
-    session = QuestionTreeAPISession(QuestionTree(root=BinaryQuestion("test", None, None)))  # type: ignore
+def test_answer_binary_question_combined(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "Combined")
+
+    assert isinstance(result, list)
+    assert result[0].data.name == "Programme 1 EN"
+    assert result[1].data.name == "Programme 2 EN"
+
+
+def test_answer_options_question_combined(
+        options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(options_transitions_tree)
+    session_id = session.create_session()
+    result = session.answer_question(session_id, "Combined")
+
+    assert isinstance(result, list)
+    assert result[0].data.name == "Programme 1 EN"
+    assert result[1].data.name == "Programme 2 EN"
+
+
+def test_get_current_question_invalid_session(
+        simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
     with pytest.raises(ValueError, match="Session not found"):
-        session.get_current_question("invalid-session")
+        session.get_current_question("non-existent")
 
 
-def test_answer_question_invalid_session() -> None:
-    session = QuestionTreeAPISession(QuestionTree(root=BinaryQuestion("test", None, None)))  # type: ignore
+def test_answer_question_invalid_session(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
     with pytest.raises(ValueError, match="Session not found"):
-        session.answer_question("invalid-session", "Yes")
+        session.answer_question("non-existent", "Yes")
 
 
-@pytest.mark.parametrize('api_session', ['simple_binary_tree'], indirect=True)
-def test_answer_question_invalid_binary_answer(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
-    with pytest.raises(ValueError, match="Answer must be 'yes' or 'no'"):
-        api_session.answer_question(session_id, "Maybe")
+def test_answer_question_invalid_binary_answer(
+        simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(simple_binary_tree)
+    session_id = session.create_session()
+    with pytest.raises(ValueError, match="Answer must be 'yes', 'no' or 'combined'"):
+        session.answer_question(session_id, "invalid")
 
 
-@pytest.mark.parametrize('api_session', ['options_transitions_tree'], indirect=True)
-def test_answer_question_invalid_option(api_session: QuestionTreeAPISession) -> None:
-    session_id = api_session.create_session()
-    
+def test_answer_question_invalid_option(
+        options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session = QuestionTreeAPISession(options_transitions_tree)
+    session_id = session.create_session()
     with pytest.raises(ValueError, match="Invalid answer option"):
-        api_session.answer_question(session_id, "Invalid")
+        session.answer_question(session_id, "invalid")
