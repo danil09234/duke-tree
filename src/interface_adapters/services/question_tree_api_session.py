@@ -33,7 +33,7 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-class QuestionTreeAPISession(metaclass=Singleton):
+class QuestionTreeAPISession:
     def __init__(self, decision_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
         self.decision_tree = decision_tree
         self.sessions: dict[str, SessionData] = {}
