@@ -19,6 +19,8 @@ QuestionNode = Union[
 @dataclass
 class SessionData:
     current_node: QuestionNode
+    nodes_queue: list[QuestionNode]
+    final_study_programmes: list[Page[ResTukeStudyProgrammeData]]
 
 
 class QuestionTreeAPISession:
@@ -31,7 +33,7 @@ class QuestionTreeAPISession:
         self._initialize_session(session_id)
         return session_id
 
-    def answer_question(self, session_id: str, answer: str) -> Optional[Page[ResTukeStudyProgrammeData]]:
+    def answer_question(self, session_id: str, answer: str) -> Optional[list[Page[ResTukeStudyProgrammeData]]]:
         session = self._get_session(session_id)
         current_node = session.current_node
 
@@ -49,9 +51,9 @@ class QuestionTreeAPISession:
         current_node = session.current_node
 
         if isinstance(current_node, OptionsQuestion):
-            answers = [option.text for option in current_node.answer_options]
+            answers = [option.text for option in current_node.answer_options] + ["Combined"]
         elif isinstance(current_node, BinaryQuestion):
-            answers = ["Yes", "No"]
+            answers = ["Yes", "No", "Combined"]
         else:
             raise ValueError("No current question available")
 
@@ -65,7 +67,8 @@ class QuestionTreeAPISession:
         return str(uuid4())
 
     def _initialize_session(self, session_id: str) -> None:
-        self.sessions[session_id] = SessionData(current_node=self.decision_tree.root)
+        self.sessions[session_id] = SessionData(current_node=self.decision_tree.root, nodes_queue=[],
+                                                final_study_programmes=[])
 
     def _get_session(self, session_id: str) -> SessionData:
         session = self.sessions.get(session_id)
@@ -74,27 +77,44 @@ class QuestionTreeAPISession:
         return session
 
     @staticmethod
-    def _process_options_question(session: SessionData, current_node: OptionsQuestion[Page[ResTukeStudyProgrammeData]], answer: str) -> None:
+    def _process_options_question(session: SessionData, current_node: OptionsQuestion[Page[ResTukeStudyProgrammeData]],
+                                  answer: str) -> None:
+        if answer.lower() == "combined":
+            session.current_node = current_node.answer_options[0].answer_node
+            session.nodes_queue.extend(option.answer_node for option in current_node.answer_options[1:])
+            return
         option = next((opt for opt in current_node.answer_options if opt.text.lower() == answer.lower()), None)
         if not option:
             raise ValueError("Invalid answer option")
         session.current_node = option.answer_node
 
     @staticmethod
-    def _process_binary_question(session: SessionData, current_node: BinaryQuestion[Page[ResTukeStudyProgrammeData]], answer: str) -> None:
+    def _process_binary_question(session: SessionData, current_node: BinaryQuestion[Page[ResTukeStudyProgrammeData]],
+                                 answer: str) -> None:
         if answer.lower() == "yes":
             session.current_node = current_node.yes_answer_node
         elif answer.lower() == "no":
             session.current_node = current_node.no_answer_node
+        elif answer.lower() == "combined":
+            session.current_node = current_node.yes_answer_node
+            session.nodes_queue.append(current_node.no_answer_node)
         else:
-            raise ValueError("Answer must be 'yes' or 'no'")
+            raise ValueError("Answer must be 'yes', 'no' or 'combined'")
 
     def _finalize_session(
             self,
             session_id: str,
             next_node: Union[QuestionNode, Page[ResTukeStudyProgrammeData]]
-    ) -> Optional[Page[ResTukeStudyProgrammeData]]:
+    ) -> Optional[list[Page[ResTukeStudyProgrammeData]]]:
+
         if isinstance(next_node, Page):
-            del self.sessions[session_id]
-            return next_node
+            session_data = self.sessions[session_id]
+            session_data.final_study_programmes.append(next_node)
+            if len(session_data.nodes_queue) == 0:
+                final_list = session_data.final_study_programmes
+                del self.sessions[session_id]
+                return final_list
+            else:
+                session_data.current_node = session_data.nodes_queue.pop(0)
+                return None
         return None
