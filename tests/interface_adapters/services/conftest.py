@@ -5,6 +5,14 @@ from src.domain.entities.options_question import OptionsQuestion, AnswerOption
 from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
+from src.interface_adapters.services.question_tree_api_session import QuestionTreeAPISession
+
+
+@pytest.fixture(scope="function")
+def api_session(request: pytest.FixtureRequest) -> QuestionTreeAPISession:
+    fixture_name = request.param
+    tree = request.getfixturevalue(fixture_name)
+    return QuestionTreeAPISession(tree)
 
 
 @pytest.fixture
