@@ -1,13 +1,10 @@
 from threading import Lock
-from typing import Optional, TypeVar, Generic
+from typing import Optional
 from src.interface_adapters.services.question_tree_api_session import QuestionTreeAPISession
 from src.interface_adapters.persistence.serializer_storage import SerializerStorage
 from src.interface_adapters.gateways.study_programmes_gateway_base import Page
 from src.domain.entities.res_tuke_study_programme_data import ResTukeStudyProgrammeData
 from src.domain.entities.question_tree import QuestionTree
-
-
-T = TypeVar('T')
 
 
 class SingletonQuestionTreeAPISession:
