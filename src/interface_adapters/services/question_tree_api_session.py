@@ -51,9 +51,9 @@ class QuestionTreeAPISession:
         current_node = session.current_node
 
         if isinstance(current_node, OptionsQuestion):
-            answers = [option.text for option in current_node.answer_options] + ["Combined"]
+            answers = [option.text for option in current_node.answer_options] + ["Probably"]
         elif isinstance(current_node, BinaryQuestion):
-            answers = ["Yes", "No", "Combined"]
+            answers = ["Yes", "No", "Probably"]
         else:
             raise ValueError("No current question available")
 
@@ -79,7 +79,7 @@ class QuestionTreeAPISession:
     @staticmethod
     def _process_options_question(session: SessionData, current_node: OptionsQuestion[Page[ResTukeStudyProgrammeData]],
                                   answer: str) -> None:
-        if answer.lower() == "combined":
+        if answer.lower() == "probably":
             session.current_node = current_node.answer_options[0].answer_node
             session.nodes_queue.extend(option.answer_node for option in current_node.answer_options[1:])
             return
@@ -95,11 +95,11 @@ class QuestionTreeAPISession:
             session.current_node = current_node.yes_answer_node
         elif answer.lower() == "no":
             session.current_node = current_node.no_answer_node
-        elif answer.lower() == "combined":
+        elif answer.lower() == "probably":
             session.current_node = current_node.yes_answer_node
             session.nodes_queue.append(current_node.no_answer_node)
         else:
-            raise ValueError("Answer must be 'yes', 'no' or 'combined'")
+            raise ValueError("Answer must be 'yes', 'no' or 'probably'")
 
     def _finalize_session(
             self,

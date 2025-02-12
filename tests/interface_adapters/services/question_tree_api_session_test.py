@@ -22,14 +22,14 @@ def test_get_current_question_binary(simple_binary_tree: QuestionTree[Page[ResTu
     resp = session.get_current_question(session_id)
 
     assert resp.question == "Are you interested in computer technologies?"
-    assert resp.answers == ["Yes", "No", "Combined"]
+    assert resp.answers == ["Yes", "No", "Probably"]
 
 
 def test_get_current_question_options(options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     session = QuestionTreeAPISession(options_transitions_tree)
     session_id = session.create_session()
     resp = session.get_current_question(session_id)
-    expected = ["Yes", "No", "Combined"]
+    expected = ["Yes", "No", "Probably"]
     assert resp.question == "Do you like programming?"
     assert sorted(resp.answers) == sorted(expected)
 
@@ -84,7 +84,7 @@ def test_answer_complex_path(full_generation_tree: QuestionTree[Page[ResTukeStud
 def test_answer_binary_question_combined(simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     session = QuestionTreeAPISession(simple_binary_tree)
     session_id = session.create_session()
-    result = session.answer_question(session_id, "Combined")
+    result = session.answer_question(session_id, "Probably")
 
     assert isinstance(result, list)
     assert result[0].data.name == "Programme 1 EN"
@@ -95,7 +95,7 @@ def test_answer_options_question_combined(
         options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     session = QuestionTreeAPISession(options_transitions_tree)
     session_id = session.create_session()
-    result = session.answer_question(session_id, "Combined")
+    result = session.answer_question(session_id, "Probably")
 
     assert isinstance(result, list)
     assert result[0].data.name == "Programme 1 EN"
@@ -119,7 +119,7 @@ def test_answer_question_invalid_binary_answer(
         simple_binary_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
     session = QuestionTreeAPISession(simple_binary_tree)
     session_id = session.create_session()
-    with pytest.raises(ValueError, match="Answer must be 'yes', 'no' or 'combined'"):
+    with pytest.raises(ValueError, match="Answer must be 'yes', 'no' or 'probably'"):
         session.answer_question(session_id, "invalid")
 
 
