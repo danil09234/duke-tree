@@ -1,7 +1,6 @@
-from typing import Optional, Union, Any
+from typing import Optional, Union
 from uuid import uuid4
 from dataclasses import dataclass
-from threading import Lock
 
 from src.domain.entities.question_tree import QuestionTree
 from src.domain.entities.options_question import OptionsQuestion
@@ -20,17 +19,6 @@ QuestionNode = Union[
 @dataclass
 class SessionData:
     current_node: QuestionNode
-
-
-class Singleton(type):
-    _instances: dict[type, type] = {}
-    _lock = Lock()
-
-    def __call__(cls, *args: list[Any], **kwargs: list[Any]) -> type:
-        with cls._lock:
-            if cls not in cls._instances:
-                cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
 
 
 class QuestionTreeAPISession:
