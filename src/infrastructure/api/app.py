@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(qt_router, prefix="/api")
+app.include_router(qt_router, prefix="/api/tree")
 
 
 async def main() -> None:
