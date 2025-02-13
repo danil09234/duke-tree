@@ -51,7 +51,7 @@ class QuestionTreeAPISession:
         current_node = session.current_node
 
         if isinstance(current_node, OptionsQuestion):
-            answers = [option.text for option in current_node.answer_options] + ["Probably"]
+            answers = [option.text for option in current_node.answer_options]
         elif isinstance(current_node, BinaryQuestion):
             answers = ["Yes", "No", "Probably"]
         else:
