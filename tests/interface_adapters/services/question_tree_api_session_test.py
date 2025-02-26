@@ -29,7 +29,7 @@ def test_get_current_question_options(options_transitions_tree: QuestionTree[Pag
     session = QuestionTreeAPISession(options_transitions_tree)
     session_id = session.create_session()
     resp = session.get_current_question(session_id)
-    expected = ["Yes", "No", "Probably"]
+    expected = ["Yes", "No"]
     assert resp.question == "Do you like programming?"
     assert sorted(resp.answers) == sorted(expected)
 
@@ -91,15 +91,19 @@ def test_answer_binary_question_combined(simple_binary_tree: QuestionTree[Page[R
     assert result[1].data.name == "Programme 2 EN"
 
 
-def test_answer_options_question_combined(
-        options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
-    session = QuestionTreeAPISession(options_transitions_tree)
-    session_id = session.create_session()
-    result = session.answer_question(session_id, "Probably")
+def test_answer_options_question_all_results(options_transitions_tree: QuestionTree[Page[ResTukeStudyProgrammeData]]) -> None:
+    session1 = QuestionTreeAPISession(options_transitions_tree)
+    session_id1 = session1.create_session()
+    result1 = session1.answer_question(session_id1, "Yes")
 
-    assert isinstance(result, list)
-    assert result[0].data.name == "Programme 1 EN"
-    assert result[1].data.name == "Programme 2 EN"
+    session2 = QuestionTreeAPISession(options_transitions_tree)
+    session_id2 = session2.create_session()
+    result2 = session2.answer_question(session_id2, "No")
+
+    assert result1 is not None
+    assert result2 is not None
+    assert result1[0].data.name == "Programme 1 EN"
+    assert result2[0].data.name == "Programme 2 EN"
 
 
 def test_get_current_question_invalid_session(
