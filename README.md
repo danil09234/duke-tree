@@ -55,6 +55,13 @@ The entire project is dockerized. To get started, follow these steps:
     ```bash
     source ./mypy-tests.sh
     ```
+   
+5. **Run Backend**: To start the backend service, use the following command:
+
+    ### For macOS
+    ```bash
+    source ./duke-cli.sh serve 0.0.0.0 80
+    ```
 
 ## Containers Overview
 
