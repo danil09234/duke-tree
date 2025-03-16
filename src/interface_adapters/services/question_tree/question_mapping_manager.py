@@ -106,7 +106,7 @@ class QuestionsMappingManager:
         elif isinstance(node, BinaryQuestion):
             question = node.text
         else:
-            raise TypeError(f"Invalid node type: {type(node_id)}")
+            raise TypeError(f"Invalid node type: {type(node)}")
 
         answer_options: dict[str, str] = {}
 
